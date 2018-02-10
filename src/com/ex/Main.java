@@ -12,67 +12,46 @@ public class Main {
 
     public static void main(String[] args) {
         //Starting console action
-        System.out.println("||| R3VATUR3 BANKING |||");
+        System.out.println("||| R3VATUR3 BANKING |||\n");
         printMainMenu();
 
         //This string reference handles all scanner input
         String userInput = getUserInput();
 
-        //Check if input is valid
-        boolean invalid = true;
-        while (invalid) {
-            if (userInput.length() == 1 && Character.isDigit(userInput.charAt(0)) && ValidFormat.isMinMaxLength(userInput, 1, 3)) {
-                invalid = false;
-            }
-            else {
-                System.out.println("No matching input");
-                System.out.println("Please try again");
-                printMainMenu();
-                userInput = getUserInput();
-            }
-        }
+        //Check if input is a valid number between 1 - 3
+        userInput = ValidFormat.loopUntilValid(userInput,"VALUE", 1, 4);
 
-        if (userInput.equals("1")){
-            //Login selected
+        if (userInput.equals("1")) {//Login selected
             printLoginMenu();
             userInput = getUserInput();
-            //Will call Login class
-        }
-        else if (userInput.equals("2")){
-            //Apply for account selected
+            userInput = ValidFormat.loopUntilValid(userInput,"VALUE", 1, 3);
+
+            if (userInput.equals("1")) { //Customer logging in
+                System.out.println("Welcome back customer!\tBeginning client login...");
+                Login newlogin = new Login(User.Customer);
+            } else if (userInput.equals("2")) { //Employee logging in
+                System.out.println("Hello!\tBeginning portal login...");
+                Login newlogin = new Login(User.Employee);
+            } else if (userInput.equals("3")) { //Admin logging in
+                System.out.println("Hello, welcome back!\tInitializing portal login...");
+                Login newlogin = new Login(User.Admin);
+            }
+
+        } else if (userInput.equals("2")) {//Apply for account selected
             //Will call AccountApplication class
-        }
-        else if (userInput.equals("3")){
-            //Register for account selected
-            //WIll call Register class
-        }
 
+        } else if (userInput.equals("3")) {//Register for account selected
+            //Will call Register class
 
+        } else if (userInput.equals("4")){//Exit selected, Do nothing
+            System.out.println("Exiting Client...");
+        }
     }
 
     public Main(){
 
     }
 
-    public int[] sort(int[] toSort){
-        int[] toReturn = toSort;
-        boolean sorted = false;
-        int a, b;
-        while(!sorted)
-        {
-            sorted = true;
-            for(int i = 0; i < toReturn.length-1; i++)
-            {
-                if((a=toReturn[i])>(b=toReturn[i+1]))
-                {
-                    toReturn[i] = b;
-                    toReturn[i+1] = a;
-                    sorted = false;
-                }
-            }
-        }
-        return toReturn;
-    }
 
     public static void printMainMenu(){
         System.out.println("|Enter the number corresponding to your action|");
@@ -89,7 +68,7 @@ public class Main {
         System.out.println("\t3- Admin");
     }
 
-    private static String getUserInput(){
+    public static String getUserInput(){
         return sc.next();
     }
 }
