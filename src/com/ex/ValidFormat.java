@@ -10,6 +10,7 @@ public class ValidFormat {
         //  Commands:
         // LETTERS
         // ALPHANUM
+        // SPACE
 
         switch (command){
             case "LETTERS":{
@@ -30,6 +31,19 @@ public class ValidFormat {
                 boolean invalid = true;
                 while (invalid){
                     if (isAlphanum(input)){
+                        invalid = false;
+                    }
+                    else{
+                        System.out.println("Input is not matching\nPlease try again");
+                        input = Main.getUserInput();
+                    }
+                }
+                break;
+            }
+            case "SPACE":{
+                boolean invalid = true;
+                while (invalid){
+                    if (hasNoSpaces(input)){
                         invalid = false;
                     }
                     else{
@@ -126,6 +140,13 @@ public class ValidFormat {
         return true;
     }
 
-
+    public static boolean hasNoSpaces(String input){
+        for (int i = 0; i < input.length(); i++){
+            if (Character.isSpaceChar(input.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
