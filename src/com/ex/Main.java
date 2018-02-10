@@ -71,4 +71,5 @@ public class Main {
     public static String getUserInput(){
         return sc.next();
     }
+
 }
