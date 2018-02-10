@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 
+import static com.ex.AllAccounts.accounts;
+
 public class Main {
 
     static Logger logger = LogManager.getLogger();
@@ -38,7 +40,35 @@ public class Main {
             }
 
         } else if (userInput.equals("2")) {//Apply for account selected
-            //Will call AccountApplication class
+
+            // THIS FIELD IS STILL IN DEVELOPMENT, NOT FINISHED.
+
+            System.out.println("Do you have an existing account?");
+            System.out.println("\t1- Yes\n\t2- No");
+            userInput = ValidFormat.loopUntilValid(userInput,"VALUE", 1, 2);
+
+            if (userInput.equals("1")){                     //Answer = Yes.
+                System.out.println("Enter your username");
+                String username = getUserInput();
+                username = ValidFormat.loopUntilValid(username, "ALPHANUM");
+
+                System.out.println("Checking if account exists...");
+                boolean exist = accounts.doesUserExist(User.Customer, username);
+
+                if (exist) {
+                    System.out.println("Enter your password");
+                    String password = getUserInput();
+                    password = ValidFormat.loopUntilValid(password, "SPACE");
+
+                    //LEFT OFF AT THIS POINT.
+                }
+                else{
+                    System.out.println("There is no account by that username");
+                }
+            }
+                else if (userInput.equals("2")){            //Answer = No.
+
+            }
 
         } else if (userInput.equals("3")) {//Register for account selected
             //Will call Register class
