@@ -1,5 +1,6 @@
 package com.ex;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -407,5 +408,603 @@ public class MainTest {
         Boolean expected = false;
         String ssn = "";
         Assert.assertEquals(expected,m.checkSSN(ssn));
+    }
+
+    @Test
+    public void accountCheck1(){
+        Boolean expected = true;
+        String aNumber = "1234-5678-9012";
+        Assert.assertEquals(expected,m.accountConfirm(aNumber));
+    }
+
+    @Test
+    public void accountCheck2(){
+        Boolean expected = false;
+        String aNumber = "123-5678-9012";
+        Assert.assertEquals(expected,m.accountConfirm(aNumber));
+    }
+
+    @Test
+    public void accountCheck3(){
+        Boolean expected = false;
+        String aNumber = "1234-567-9012";
+        Assert.assertEquals(expected,m.accountConfirm(aNumber));
+    }
+
+    @Test
+    public void accountCheck4(){
+        Boolean expected = false;
+        String aNumber = "1234-5678-901";
+        Assert.assertEquals(expected,m.accountConfirm(aNumber));
+    }
+
+    @Test
+    public void accountCheck5(){
+        Boolean expected = false;
+        String aNumber = "";
+        Assert.assertEquals(expected,m.accountConfirm(aNumber));
+    }
+
+    @Test
+    public void cardCheck1(){
+        Boolean expected = true;
+        String cardNumber = "1234-5678-9012-3456";
+        Assert.assertEquals(expected,m.cardConfirm(cardNumber));
+    }
+
+    @Test
+    public void cardCheck2(){
+        Boolean expected = false;
+        String cardNumber = "123-5678-9012-3456";
+        Assert.assertEquals(expected,m.cardConfirm(cardNumber));
+    }
+
+    @Test
+    public void cardCheck3(){
+        Boolean expected = false;
+        String cardNumber = "1234-567-9012-3456";
+        Assert.assertEquals(expected,m.cardConfirm(cardNumber));
+    }
+
+    @Test
+    public void cardCheck4(){
+        Boolean expected = false;
+        String cardNumber = "1234-5678-901-3456";
+        Assert.assertEquals(expected,m.cardConfirm(cardNumber));
+    }
+
+    @Test
+    public void cardCheck5(){
+        Boolean expected = false;
+        String cardNumber = "1234-5678-9012-345";
+        Assert.assertEquals(expected,m.cardConfirm(cardNumber));
+    }
+
+    @Test
+    public void cardCheck6(){
+        Boolean expected = false;
+        String cardNumber = "";
+        Assert.assertEquals(expected,m.cardConfirm(cardNumber));
+    }
+
+    @Test
+    public void accountType1(){
+        String expected = "Confirm Account Type: Checking";
+        int choice = 1;
+        Assert.assertEquals(expected,m.accountType(choice));
+    }
+
+    @Test
+    public void accountType2(){
+        String expected = "Not a valid account type";
+        int choice = 11;
+        Assert.assertEquals(expected,m.accountType(choice));
+    }
+
+    @Test
+    public void accountType3(){
+        String expected = "Not a valid account type";
+        Integer choice = null;
+        Assert.assertEquals(expected,m.accountType(choice));
+    }
+
+    @Test
+    public void AcoountTypeConfirm1(){
+        String expected = "Account Type Confirmed";
+        String confirmation = "Yes";
+        Assert.assertEquals(expected,m.confirmAccountType(confirmation));
+    }
+
+    @Test
+    public void AcoountTypeConfirm2(){
+        String expected = "Account Type Not Confirmed. Please Choose New Account Type.";
+        String confirmation = "No";
+        Assert.assertEquals(expected,m.confirmAccountType(confirmation));
+    }
+
+    @Test
+    public void AcoountTypeConfirm3(){
+        String expected = "Account Type Not Confirmed. Please Choose New Account Type.";
+        String confirmation = "";
+        Assert.assertEquals(expected,m.confirmAccountType(confirmation));
+    }
+
+    @Test
+    public void securityQuestionSelect1(){
+        String expected = "Enter Answer: ";
+        int choice = 1;
+        Assert.assertEquals(expected,m.accountType(choice));
+    }
+
+    @Test
+    public void securityQuestionSelect2(){
+        String expected = "Not a valid number";
+        int choice = 11;
+        Assert.assertEquals(expected,m.accountType(choice));
+    }
+
+    @Test
+    public void securityQuestionSelect3(){
+        String expected = "Not a number";
+        Integer choice = null;
+        Assert.assertEquals(expected,m.accountType(choice));
+    }
+
+    @Test
+    public void SecurityAnswerCheck1(){
+        Boolean expected = true;
+        String answer = "Cranky";
+        Assert.assertEquals(expected,m.checkAnswer(answer));
+    }
+
+    @Test
+    public void SecurityAnswerCheck2(){
+        Boolean expected = false;
+        String answer = "";
+        Assert.assertEquals(expected,m.checkAnswer(answer));
+    }
+
+    @Test
+    public void checkDate1(){
+        Boolean expected = true;
+        String date = "11/02/1994";
+        Assert.assertEquals(expected,m.checkDate(date));
+    }
+
+    @Test
+    public void checkDate2(){
+        Boolean expected = false;
+        String date = "1/02/1994";
+        Assert.assertEquals(expected,m.checkDate(date));
+    }
+
+    @Test
+    public void checkDate3(){
+        Boolean expected = false;
+        String date = "01/2/1994";
+        Assert.assertEquals(expected,m.checkDate(date));
+    }
+
+    @Test
+    public void checkDate4(){
+        Boolean expected = false;
+        String date = "01/02/199";
+        Assert.assertEquals(expected,m.checkDate(date));
+    }
+
+    @Test
+    public void checkDate5(){
+        Boolean expected = false;
+        String date = "";
+        Assert.assertEquals(expected,m.checkDate(date));
+    }
+
+    @Test
+    public void checkAddress1(){
+        Boolean expected = true;
+        String address = "123 fake street";
+        Assert.assertEquals(expected,m.checkAddress(address));
+    }
+
+    @Test
+    public void checkAddress2(){
+        Boolean expected = false;
+        String address = "";
+        Assert.assertEquals(expected,m.checkAddress(address));
+    }
+
+    @Test
+    public void checkCity1(){
+        Boolean expected = true;
+        String city = "Townsville";
+        Assert.assertEquals(expected,m.checkCity(city));
+    }
+
+    @Test
+    public void checkCity2(){
+        Boolean expected = false;
+        String city = "";
+        Assert.assertEquals(expected,m.checkCity(city));
+    }
+
+    @Test
+    public void checkRegion1(){
+        Boolean expected = true;
+        String city = "Statesylvania";
+        Assert.assertEquals(expected,m.checkRegion(city));
+    }
+
+    @Test
+    public void checkRegion2(){
+        Boolean expected = false;
+        String city = "";
+        Assert.assertEquals(expected,m.checkRegion(city));
+    }
+
+    @Test
+    public void checkZIP1(){
+        Boolean expected = true;
+        String zip = "00000";
+        Assert.assertEquals(expected,m.checkZIP(zip));
+    }
+
+    @Test
+    public void checkZIP1(){
+        Boolean expected = false;
+        String zip = "0000a";
+        Assert.assertEquals(expected,m.checkZIP(zip));
+    }
+
+    @Test
+    public void checkZIP1(){
+        Boolean expected = false;
+        String zip = "";
+        Assert.assertEquals(expected,m.checkZIP(zip));
+    }
+
+    @Test
+    public void checkCountry1(){
+        Boolean expected = true;
+        String country = "Countrystan";
+        Assert.assertEquals(expected,m.checkCountry(country));
+    }
+
+    @Test
+    public void checkCountry2(){
+        Boolean expected = false;
+        String country = "";
+        Assert.assertEquals(expected,m.checkCountry(country));
+    }
+
+    @Test
+    public void compareNames1(){
+        Boolean expected = true;
+        String name1 = "Joseph Tursi";
+        String name2 = "Joseph Tursi";
+        Assert.assertEquals(expected,m.compareNames(name1,name2));
+    }
+
+    @Test
+    public void compareNames2(){
+        Boolean expected = false;
+        String name1 = "Joseph";
+        String name2 = "Joseph Tursi";
+        Assert.assertEquals(expected,m.compareNames(name1,name2));
+    }
+
+    @Test
+    public void compareNames3(){
+        Boolean expected = false;
+        String name1 = "Joseph Tursi";
+        String name2 = "Joseph";
+        Assert.assertEquals(expected,m.compareNames(name1,name2));
+    }
+
+    @Test
+    public void compareNames4(){
+        Boolean expected = false;
+        String name1 = "Joseph Turi";
+        String name2 = "Joseph Tursi";
+        Assert.assertEquals(expected,m.compareNames(name1,name2));
+    }
+
+    @Test
+    public void compareNames5(){
+        Boolean expected = false;
+        String name1 = "";
+        String name2 = "";
+        Assert.assertEquals(expected,m.compareNames(name1,name2));
+    }
+
+    @Test
+    public void compareSSN1(){
+        Boolean expected = true;
+        String ssn1 = "123-45-6789";
+        String ssn2 = "123-45-6789";
+        Assert.assertEquals(expected,m.compareNames(ssn1,ssn2));
+    }
+
+    @Test
+    public void compareSSN2(){
+        Boolean expected = false;
+        String name1 = "123-45-6789";
+        String name2 = "123-45-678";
+        Assert.assertEquals(expected,m.compareNames(name1,name2));
+    }
+
+    @Test
+    public void compareSSN3(){
+        Boolean expected = false;
+        String name1 = "";
+        String name2 = "";
+        Assert.assertEquals(expected,m.compareNames(name1,name2));
+    }
+
+    @Test
+    public void compareAddresses1(){
+        Boolean expected = true;
+        String address1 = "123 fake street State Country 12345";
+        String address2 = "123 fake street State Country 12345";
+        Assert.assertEquals(expected,m.compareAddresses(address1,address2));
+    }
+
+    @Test
+    public void compareAddresses2(){
+        Boolean expected = false;
+        String address1 = "123 fake street State Country 1234";
+        String address2 = "123 fake street State Country 12345";
+        Assert.assertEquals(expected,m.compareAddresses(address1,address2));
+    }
+
+    @Test
+    public void compareAddresses3(){
+        Boolean expected = false;
+        String address1 = "";
+        String address2 = "";
+        Assert.assertEquals(expected,m.compareAddresses(address1,address2));
+    }
+
+    @Test
+    public void verifyBusiness1(){
+        Boolean expected = true;
+        String business = "Business";
+        Assert.assertEquals(expected,m.verifyBusiness(business));
+    }
+
+    @Test
+    public void verifyBusiness2(){
+        Boolean expected = false;
+        String business = "";
+        Assert.assertEquals(expected,m.verifyBusiness(business));
+    }
+
+    @Test
+    public void verifyPosition1(){
+        Boolean expected = true;
+        String position = "Cashier";
+        Assert.assertEquals(expected,m.verifyBusiness(position));
+    }
+
+    @Test
+    public void verifyPosition2(){
+        Boolean expected = false;
+        String position = "";
+        Assert.assertEquals(expected,m.verifyBusiness(position));
+    }
+
+    @Test
+    public void verifyEndDate1(){
+        Boolean expected = true;
+        String startDate = "11/02/2016";
+        String endDate = "11/02/2017";
+        Assert.assertEquals(expected,m.verifyEndDate(startDate,endDate));
+    }
+
+    @Test
+    public void verifyEndDate2(){
+        Boolean expected = false;
+        String startDate = "11/02/2017";
+        String endDate = "11/02/2016";
+        Assert.assertEquals(expected,m.verifyEndDate(startDate,endDate));
+    }
+
+    @Test
+    public void verifyEndDate3(){
+        Boolean expected = false;
+        String startDate = "";
+        String endDate = "";
+        Assert.assertEquals(expected,m.verifyEndDate(startDate,endDate));
+    }
+
+    @Test
+    public void verifyPhoneNumber1(){
+        Boolean expected = true;
+        String pNumber = "123-456-7890";
+        Assert.assertEquals(expected,m.verifyPhoneNumber(pNumber));
+    }
+
+    @Test
+    public void verifyPhoneNumber2(){
+        Boolean expected = false;
+        String pNumber = "123-456-789";
+        Assert.assertEquals(expected,m.verifyPhoneNumber(pNumber));
+    }
+
+    @Test
+    public void verifyPhoneNumber3(){
+        Boolean expected = false;
+        String pNumber = "";
+        Assert.assertEquals(expected,m.verifyPhoneNumber(pNumber));
+    }
+
+    @Test
+    public void verifyBusinessEnd1(){
+        String expected = "Enter a new business";
+        String input = "yes";
+        Assert.assertEquals(expected,m.newBusiness(input));
+    }
+
+    @Test
+    public void verifyBusinessEnd2(){
+        String expected = "Credit Check Finished";
+        String input = "no";
+        Assert.assertEquals(expected,m.newBusiness(input));
+    }
+
+    @Test
+    public void verifyBusinessEnd3(){
+        String expected = "Please input either yes or no";
+        String input = "1";
+        Assert.assertEquals(expected,m.newBusiness(input));
+    }
+
+    @Test
+    public void verifyBusinessEnd4(){
+        String expected = "Please input either yes or no";
+        String input = "";
+        Assert.assertEquals(expected,m.newBusiness(input));
+    }
+
+    @Test
+    public void openAccounts1(){
+        String expected = "Opening Accounts Screen";
+        String input = "1";
+        Assert.assertEquals(expected,m.employeeMenu(input));
+    }
+
+    @Test
+    public void openAccounts2(){
+        String expected = "Not a valid selection";
+        String input = "17";
+        Assert.assertEquals(expected,m.employeeMenu(input));
+    }
+
+    @Test
+    public void openAccounts3(){
+        String expected = "Not a valid selection";
+        String input = "";
+        Assert.assertEquals(expected,m.employeeMenu(input));
+    }
+
+    @Test
+    public void openAccount1(){
+        String expected = "Opening Account";
+        String input = "1";
+        Assert.assertEquals(expected,m.employeeMenu(input));
+    }
+
+    @Test
+    public void openAccount2(){
+        String expected = "Not a valid selection";
+        String input = "-1";
+        Assert.assertEquals(expected,m.employeeMenu(input));
+    }
+
+    @Test
+    public void openAccount3(){
+        String expected = "Not a valid selection";
+        String input = "";
+        Assert.assertEquals(expected,m.employeeMenu(input));
+    }
+
+    @Test
+    public void startUnblock1(){
+        String expected = "Unblocking account";
+        String input = "unblock";
+        Assert.assertEquals(expected,m.employeemenu(input));
+    }
+
+    @Test
+    public void startUnblock2(){
+        String expected = "Not a valid input";
+        String input = "unbloc";
+        Assert.assertEquals(expected,m.employeemenu(input));
+    }
+
+    @Test
+    public void startUnblock3(){
+        String expected = "Not a valid input";
+        String input = "";
+        Assert.assertEquals(expected,m.employeemenu(input));
+    }
+
+    @Test
+    public void unlockAccount1(){
+        String expected = "Account unlocked";
+        String username = "Maxrimus";
+        String input = "6789";
+        Assert.assertEquals(expected,m.unlock(username,input));
+    }
+
+    @Test
+    public void unlockAccount2(){
+        String expected = "Account still locked";
+        String username = "Maxrimus";
+        String input = "678";
+        Assert.assertEquals(expected,m.unlock(username,input));
+    }
+
+    @Test
+    public void unlockAccount3(){
+        String expected = "Account still locked";
+        String username = "Maxrimus";
+        String input = "";
+        Assert.assertEquals(expected,m.unlock(username,input));
+    }
+
+    @Test
+    public void openApplications1(){
+        String expected = "Opening Applications Screen";
+        String input = "2";
+        Assert.assertEquals(expected,m.employeeMenu(input));
+    }
+
+    @Test
+    public void openApplication1(){
+        String expected = "Opening Application";
+        String input = "1";
+        Assert.assertEquals(expected,m.employeeMenu(input));
+    }
+
+    @Test
+    public void openApplication2(){
+        String expected = "Not a valid selection";
+        String input = "-1";
+        Assert.assertEquals(expected,m.employeeMenu(input));
+    }
+
+    @Test
+    public void openApplication3(){
+        String expected = "Not a valid selection";
+        String input = "";
+        Assert.assertEquals(expected,m.employeeMenu(input));
+    }
+
+    @Test
+    public void modifyApplication1(){
+        String expected = "Application accepted";
+        String input = "Accept";
+        Assert.assertEquals(expected,m.modifyApplication(input));
+    }
+
+    @Test
+    public void modifyApplication2(){
+        String expected = "Application denied";
+        String input = "Deny";
+        Assert.assertEquals(expected,m.modifyApplication(input));
+    }
+
+    @Test
+    public void modifyApplication3(){
+        String expected = "Invalid Entry";
+        String input = "Accep";
+        Assert.assertEquals(expected,m.modifyApplication(input));
+    }
+
+    @Test
+    public void modifyApplication4(){
+        String expected = "Invalid Entry";
+        String input = "";
+        Assert.assertEquals(expected,m.modifyApplication(input));
     }
 }
