@@ -3,16 +3,26 @@ package com.ex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
-import static com.ex.AllAccounts.accounts;
 
 public class Main {
 
     static Logger logger = LogManager.getLogger();
     static Scanner sc = new Scanner(System.in);
+    static AllAccounts accounts = AllAccounts.getAccounts();
+
+    public Main(){
+    }
 
     public static void main(String[] args) {
+        //Calling application to start
+        start();
+    }
+
+    public static void start(){
         //Starting console action
         System.out.println("||| R3VATUR3 BANKING |||\n");
         printMainMenu();
@@ -66,7 +76,7 @@ public class Main {
                     System.out.println("There is no account by that username");
                 }
             }
-                else if (userInput.equals("2")){            //Answer = No.
+            else if (userInput.equals("2")){            //Answer = No.
 
             }
 
@@ -78,9 +88,6 @@ public class Main {
         }
     }
 
-    public Main(){
-
-    }
 
 
     public static void printMainMenu(){
