@@ -1007,4 +1007,249 @@ public class MainTest {
         String input = "";
         Assert.assertEquals(expected,m.modifyApplication(input));
     }
+    
+    @Test
+    public void accountAdjustments1(){
+        String expected = "Enter the amount to withdraw.";
+        String input = "withdraw";
+        Assert.assertEquals(expected,m.accountAdjust(input));
+    }
+
+    @Test
+    public void accountAdjustments2(){
+        String expected = "Enter the amount to deposit.";
+        String input = "deposit";
+        Assert.assertEquals(expected,m.accountAdjust(input));
+    }
+
+    @Test
+    public void accountAdjustments3(){
+        String expected = "Enter the account to transfer from.";
+        String input = "transfer";
+        Assert.assertEquals(expected,m.accountAdjust(input));
+    }
+
+    @Test
+    public void accountAdjustments4(){
+        String expected = "Invalid Entry. Please Enter Again.";
+        String input = "withdra";
+        Assert.assertEquals(expected,m.accountAdjust(input));
+    }
+
+    @Test
+    public void accountAdjustments5(){
+        String expected = "Invalid Entry. Please Enter Again.";
+        String input = "";
+        Assert.assertEquals(expected,m.accountAdjust(input));
+    }
+    
+    @Test
+    public void testWithdraw1(){
+        String expected = "$500 withdrawn";
+        int input = 500;
+        Assert.assertEquals(expected,m.withdraw(input));
+    }
+
+    @Test
+    public void testWithdraw2(){
+        String expected = "Invalid entry. Please enter a valid amount.";
+        int input = 5000;
+        Assert.assertEquals(expected,m.withdraw(input));
+    }
+
+    @Test
+    public void testWithdraw3(){
+        String expected = "Invalid entry. Please enter a valid amount.";
+        int input = -100;
+        Assert.assertEquals(expected,m.withdraw(input));
+    }
+
+    @Test
+    public void testWithdraw4(){
+        String expected = "Invalid entry. Please enter a valid amount.";
+        Integer input = null;
+        Assert.assertEquals(expected,m.withdraw(input));
+    }
+
+    @Test
+    public void testDeposit1(){
+        String expected = "$500 deposited";
+        int input = 500;
+        Assert.assertEquals(expected,m.deposit(input));
+    }
+
+    @Test
+    public void testDeposit2(){
+        String expected = "Invalid entry. Please enter a valid amount.";
+        int input = 5000;
+        Assert.assertEquals(expected,m.deposit(input));
+    }
+
+    @Test
+    public void testDeposit3(){
+        String expected = "Invalid entry. Please enter a valid amount.";
+        int input = -100;
+        Assert.assertEquals(expected,m.deposit(input));
+    }
+
+    @Test
+    public void testDeposit4(){
+        String expected = "Invalid entry. Please enter a valid amount.";
+        Integer input = null;
+        Assert.assertEquals(expected,m.deposit(input));
+    }
+
+    @Test
+    public void testTransfer1(){
+        String expected = "$500 transfern";
+        int input = 500;
+        String account1 = "1234-5678-9012";
+        String account2 = "2109-8765-4321";
+        Assert.assertEquals(expected,m.transfer(input, account1, account2));
+    }
+
+    @Test
+    public void testTransfer2(){
+        String expected = "Invalid entry. Please enter a valid amount.";
+        int input = 5000;
+        String account1 = "1234-5678-9012";
+        String account2 = "2109-8765-4321";
+        Assert.assertEquals(expected,m.transfer(input, account1, account2));
+    }
+
+    @Test
+    public void testTransfer3(){
+        String expected = "Invalid entry. Please enter a valid amount.";
+        int input = -100;
+        String account1 = "1234-5678-9012";
+        String account2 = "2109-8765-4321";
+        Assert.assertEquals(expected,m.transfer(input, account1, account2));
+    }
+
+    @Test
+    public void testTransfer4(){
+        String expected = "Invalid entry. Please enter a valid amount.";
+        Integer input = null;
+        String account1 = "1234-5678-9012";
+        String account2 = "2109-8765-4321";
+        Assert.assertEquals(expected,m.transfer(input, account1, account2));
+    }
+
+    @Test
+    public void testTransfer5(){
+        String expected = "Invalid Account. Please select valid account.";
+        int input = 500;
+        String account1 = "1234-5678-901";
+        String account2 = "2109-8765-4321";
+        Assert.assertEquals(expected,m.transfer(input, account1, account2));
+    }
+
+    @Test
+    public void testTransfer6(){
+        String expected = "Invalid Account. Please select valid account.";
+        int input = 500;
+        String account1 = "1234-5678-9012";
+        String account2 = "2109-8765-432";
+        Assert.assertEquals(expected,m.transfer(input, account1, account2));
+    }
+
+    @Test
+    public void testTransfer7(){
+        String expected = "Invalid Account. Please select valid account.";
+        int input = 500;
+        String account1 = "1234-5678-902";
+        String account2 = "2109-8765-432";
+        Assert.assertEquals(expected,m.transfer(input, account1, account2));
+    }
+
+    @Test
+    public void testTransfer8(){
+        String expected = "Invalid Account. Please select valid account.";
+        int input = 500;
+        String account1 = "";
+        String account2 = "2109-8765-4321";
+        Assert.assertEquals(expected,m.transfer(input, account1, account2));
+    }
+
+    @Test
+    public void testTransfer9(){
+        String expected = "Invalid Account. Please select valid account.";
+        int input = 500;
+        String account1 = "1234-5678-9012";
+        String account2 = "";
+        Assert.assertEquals(expected,m.transfer(input, account1, account2));
+    }
+
+    @Test
+    public void testTransfer10(){
+        String expected = "Invalid Account. Please select valid account.";
+        int input = 500;
+        String account1 = "";
+        String account2 = "";
+        Assert.assertEquals(expected,m.transfer(input, account1, account2));
+    }
+
+    @Test
+    public void testCancel1(){
+        String expected = "Account Cancelled";
+        String reason = "Default";
+        String confirm = "Yes";
+        Assert.assertEquals(expected,m.cancelAccount(reason,confirm));
+    }
+
+    @Test
+    public void testCancel2(){
+        String expected = "Account Cancelled";
+        String reason = "";
+        String confirm = "Yes";
+        Assert.assertEquals(expected,m.cancelAccount(reason,confirm));
+    }
+
+    @Test
+    public void testCancel3(){
+        String expected = "Account Not Cancelled";
+        String reason = "Default";
+        String confirm = "No";
+        Assert.assertEquals(expected,m.cancelAccount(reason,confirm));
+    }
+
+    @Test
+    public void testCancel4(){
+        String expected = "Account Not Cancelled";
+        String reason = "";
+        String confirm = "No";
+        Assert.assertEquals(expected,m.cancelAccount(reason,confirm));
+    }
+
+    @Test
+    public void testCancel5(){
+        String expected = "Invalid Input. Account Cancelled";
+        String reason = "Default";
+        String confirm = "g";
+        Assert.assertEquals(expected,m.cancelAccount(reason,confirm));
+    }
+
+    @Test
+    public void testCancel6(){
+        String expected = "Invalid Input. Account Cancelled";
+        String reason = "";
+        String confirm = "g";
+        Assert.assertEquals(expected,m.cancelAccount(reason,confirm));
+    }
+
+    @Test
+    public void testCancel7(){
+        String expected = "Invalid Input. Account Cancelled";
+        String reason = "Default";
+        String confirm = "";
+        Assert.assertEquals(expected,m.cancelAccount(reason,confirm));
+    }
+
+    @Test
+    public void testCancel8(){
+        String expected = "Invalid Input. Account Cancelled";
+        String reason = "";
+        String confirm = "";
+        Assert.assertEquals(expected,m.cancelAccount(reason,confirm));
+    }
 }
