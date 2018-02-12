@@ -63,10 +63,12 @@ public class ValidFormat {
         // LENGTH
         // VALUE
 
+
         switch (command){
             case "LENGTH":{
                 boolean invalid = true;
                 while (invalid){
+
                     if (isBetweenLength(input,min,max)){
                         invalid = false;
                     }
@@ -96,16 +98,24 @@ public class ValidFormat {
 
     public static boolean isBetweenLength(String input, int minLength, int maxLength){
         int n = input.length();
-        if (n >= minLength && n <= maxLength){
-            return true;
-        }
-        else{
+        if (input != null) {
+            if (n >= minLength && n <= maxLength) {
+                return true;
+            } else {
+                return false;
+            }
+        }else {
             return false;
         }
     }
 
     public static boolean isAnIntBetween(String input, int minValue, int maxValue){
-        String specialchar = "/*!@#$%^&*()\"{}_[]|\\?/<>,.";
+        //String specialchar = "/*!@#$%^&*()\"{}_[]|\\?/<>,.";
+
+        if (input == null){
+            return false;
+        }
+
         for (int i = 0; i < input.length(); i++) {
             if (!Character.isDigit(input.charAt(i))) {
                 System.out.println("You did not enter a number");
@@ -122,6 +132,11 @@ public class ValidFormat {
     }
 
     public static boolean isAllLetters(String input){
+
+        if (input == null){
+            return false;
+        }
+
         for (int i = 0; i < input.length(); i++){
             if (!Character.isLetter(input.charAt(i))){
                 System.out.println("You entered number(s)");
@@ -132,6 +147,11 @@ public class ValidFormat {
     }
 
     public static boolean isAlphanum(String input){
+
+        if (input == null){
+            return false;
+        }
+
         for (int i = 0; i < input.length(); i++){
             if (!Character.isLetterOrDigit(input.charAt(i))){
                 return false;
@@ -141,6 +161,11 @@ public class ValidFormat {
     }
 
     public static boolean hasNoSpaces(String input){
+
+        if (input == null){
+            return false;
+        }
+
         for (int i = 0; i < input.length(); i++){
             if (Character.isSpaceChar(input.charAt(i))){
                 return false;
@@ -148,5 +173,6 @@ public class ValidFormat {
         }
         return true;
     }
+
 
 }
