@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class WriteData {
+public class WriteObjectData {
     static ObjectOutputStream out = null;
 
     public static void writeBankData(String username, BankAccount bankacc) {

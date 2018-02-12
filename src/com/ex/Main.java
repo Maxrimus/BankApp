@@ -2,9 +2,6 @@ package com.ex;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Scanner;
 
 
@@ -26,8 +23,6 @@ public class Main {
         //Starting console action
         System.out.println("||| R3VATUR3 BANKING |||\n");
         printMainMenu();
-
-        //This string reference handles all scanner input
         String userInput = getUserInput();
 
         //Check if input is a valid number between 1 - 3
@@ -88,8 +83,6 @@ public class Main {
         }
     }
 
-
-
     public static void printMainMenu(){
         System.out.println("|Enter the number corresponding to your action|");
         System.out.println("\t1- Login");
@@ -105,6 +98,7 @@ public class Main {
         System.out.println("\t3- Admin");
     }
 
+    //Call this in any class or method when console input is needed
     public static String getUserInput(){
         return sc.next();
     }

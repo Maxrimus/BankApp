@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-public class ReadData {
+public class ReadObjectData {
     static ObjectInputStream in = null;
 
     public static BankAccount readBankData(String username){
@@ -25,7 +25,6 @@ public class ReadData {
                 }
             }
         }
-
         System.out.println("No bank account found");
         return new BankAccount();
     }
@@ -45,8 +44,8 @@ public class ReadData {
                 }
             }
         }
-
         System.out.println("No bank profile found");
         return new BankProfile();
     }
+
 }
