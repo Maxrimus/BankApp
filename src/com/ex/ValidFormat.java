@@ -1,5 +1,7 @@
 package com.ex;
 
+import static com.ex.Main.accounts;
+
 public class ValidFormat {
 
     public ValidFormat(){
@@ -16,6 +18,9 @@ public class ValidFormat {
         // PASSWORD
         // SSN
         // EMAIL
+        // EXIST
+
+
 
         switch (command){
             case "LETTERS":{
@@ -110,6 +115,19 @@ public class ValidFormat {
                 }
                 break;
             }
+            case "EXIST":{
+                boolean invalid = true;
+                while (invalid){
+                    if (accounts.doesUserExist(User.Customer, input)){
+                        invalid = false;
+                    }
+                    else{
+                        System.out.println("That username already exists\nPlease try again");
+                        input = Main.getUserInput();
+                    }
+                }
+                break;
+            }
         }
 
         return input;
@@ -155,8 +173,14 @@ public class ValidFormat {
     }
 
     public static boolean isBetweenLength(String input, int minLength, int maxLength){
+
         int n = input.length();
         if (input != null) {
+            if (input.length() < 1){
+                System.out.println("You did not enter anything");
+                return false;
+            }
+
             if (n >= minLength && n <= maxLength) {
                 return true;
             } else {
@@ -171,6 +195,10 @@ public class ValidFormat {
         //String specialchar = "/*!@#$%^&*()\"{}_[]|\\?/<>,.";
 
         if (input == null){
+            return false;
+        }
+        if (input.length() < 1){
+            System.out.println("You did not enter anything");
             return false;
         }
 
@@ -194,6 +222,10 @@ public class ValidFormat {
         if (input == null){
             return false;
         }
+        if (input.length() < 1){
+            System.out.println("You did not enter anything");
+            return false;
+        }
 
         for (int i = 0; i < input.length(); i++){
             if (!Character.isLetter(input.charAt(i))){
@@ -207,6 +239,10 @@ public class ValidFormat {
     public static boolean isAlphanum(String input){
 
         if (input == null){
+            return false;
+        }
+        if (input.length() < 1){
+            System.out.println("You did not enter anything");
             return false;
         }
 
@@ -223,6 +259,10 @@ public class ValidFormat {
         if (input == null){
             return false;
         }
+        if (input.length() < 1){
+            System.out.println("You did not enter anything");
+            return false;
+        }
 
         for (int i = 0; i < input.length(); i++){
             if (Character.isSpaceChar(input.charAt(i))){
@@ -235,6 +275,10 @@ public class ValidFormat {
     public static boolean checkNameStructure(String input){
 
         if (input == null){
+            return false;
+        }
+        if (input.length() < 1){
+            System.out.println("You did not enter anything");
             return false;
         }
 
@@ -259,6 +303,10 @@ public class ValidFormat {
         if (input == null){
             return false;
         }
+        if (input.length() < 1){
+            System.out.println("You did not enter anything");
+            return false;
+        }
 
         String specialchar = "/*!@#$%^&*()\"{}_[]|\\?/<>,.";
 
@@ -277,6 +325,10 @@ public class ValidFormat {
     public static boolean isAnSSN(String input){
 
         if (input == null){
+            return false;
+        }
+        if (input.length() < 1){
+            System.out.println("You did not enter anything");
             return false;
         }
 
@@ -316,6 +368,10 @@ public class ValidFormat {
     public static boolean isAnEmail(String input){
 
         if (input == null){
+            return false;
+        }
+        if (input.length() < 1){
+            System.out.println("You did not enter anything");
             return false;
         }
 
