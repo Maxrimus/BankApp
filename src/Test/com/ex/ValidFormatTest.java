@@ -223,10 +223,146 @@ public class ValidFormatTest {
     }
 
     @Test
-    public void testLoopUntilValidA1(){
-        ByteArrayInputStream in = new ByteArrayInputStream("My string".getBytes());
-        System.setIn(in);
+    public void testCheckNameStructure1(){
+        String input = "Joe Tursi";
+        Assert.assertTrue(ValidFormat.checkNameStructure(input));
+    }
 
-        System.setIn(System.in);
+    @Test
+    public void testCheckNameStructure2(){
+        String input = "Joe tursi";
+        Assert.assertFalse(ValidFormat.checkNameStructure(input));
+    }
+
+    @Test
+    public void testCheckNameStructure3(){
+        String input = "joe Tursi";
+        Assert.assertFalse(ValidFormat.checkNameStructure(input));
+    }
+
+    @Test
+    public void testCheckNameStructure4(){
+        String input = "joe tursi";
+        Assert.assertFalse(ValidFormat.checkNameStructure(input));
+    }
+
+    @Test
+    public void testCheckNameStructure5(){
+        String input = "";
+        Assert.assertFalse(ValidFormat.checkNameStructure(input));
+    }
+
+    @Test
+    public void testCheckPassWordStructure1(){
+        String input = "Abc!1234";
+        Assert.assertTrue(ValidFormat.checkPasswordStructure(input));
+    }
+
+    @Test
+    public void testCheckPassWordStructure2(){
+        String input = "abc!1234";
+        Assert.assertFalse(ValidFormat.checkPasswordStructure(input));
+    }
+
+    @Test
+    public void testCheckPassWordStructure3(){
+        String input = "ABC!1234";
+        Assert.assertFalse(ValidFormat.checkPasswordStructure(input));
+    }
+
+    @Test
+    public void testCheckPassWordStructure4(){
+        String input = "Abc!defg";
+        Assert.assertFalse(ValidFormat.checkPasswordStructure(input));
+    }
+
+    @Test
+    public void testCheckPassWordStructure5(){
+        String input = "Abcd1234";
+        Assert.assertFalse(ValidFormat.checkPasswordStructure(input));
+    }
+
+    @Test
+    public void testCheckPassWordStructure6(){
+        String input = "Abc!123";
+        Assert.assertFalse(ValidFormat.checkPasswordStructure(input));
+    }
+
+    @Test
+    public void testCheckPassWordStructure7(){
+        String input = "";
+        Assert.assertFalse(ValidFormat.checkPasswordStructure(input));
+    }
+
+    @Test
+    public void testIsAnSSN1(){
+        String input = "123-45-6789";
+        Assert.assertTrue(ValidFormat.isAnSSN(input));
+    }
+
+    @Test
+    public void testIsAnSSN2(){
+        String input = "12-45-6789";
+        Assert.assertFalse(ValidFormat.isAnSSN(input));
+    }
+
+    @Test
+    public void testIsAnSSN3(){
+        String input = "123-4-6789";
+        Assert.assertFalse(ValidFormat.isAnSSN(input));
+    }
+
+    @Test
+    public void testIsAnSSN4(){
+        String input = "123-45-678";
+        Assert.assertFalse(ValidFormat.isAnSSN(input));
+    }
+
+    @Test
+    public void testIsAnSSN5(){
+        String input = "123-45-67890";
+        Assert.assertFalse(ValidFormat.isAnSSN(input));
+    }
+
+    @Test
+    public void testIsAnSSN6(){
+        String input = "";
+        Assert.assertFalse(ValidFormat.isAnSSN(input));
+    }
+
+    @Test
+    public void testIsAnEmail1(){
+        String input = "email@email.com";
+        Assert.assertTrue(ValidFormat.isAnEmail(input));
+    }
+
+    @Test
+    public void testIsAnEmail2(){
+        String input = "@email.com";
+        Assert.assertFalse(ValidFormat.isAnEmail(input));
+    }
+
+    @Test
+    public void testIsAnEmail3(){
+        String input = "email@.com";
+        Assert.assertTrue(ValidFormat.isAnEmail(input));
+    }
+
+    @Test
+    public void testIsAnEmail4(){
+        String input = "email@email.";
+        Assert.assertTrue(ValidFormat.isAnEmail(input));
+    }
+
+    @Test
+    public void testIsAnEmail5(){
+        String input = "email";
+        Assert.assertTrue(ValidFormat.isAnEmail(input));
+    }
+
+    @Test
+    public void testIsAnEmail6(){
+        String input = "";
+        Assert.assertTrue(ValidFormat.isAnEmail(input));
     }
 }

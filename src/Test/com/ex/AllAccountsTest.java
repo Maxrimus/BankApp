@@ -90,4 +90,100 @@ public class AllAccountsTest {
         User user = User.Admin;
         Assert.assertFalse(a.doesUserExist(user,username));
     }
+
+    @Test
+    public void testDoesPassMatch1(){
+        User user = User.Customer;
+        String username = "a";
+        String password = "1";
+        Assert.assertTrue(a.doesPassMatch(user,username,password));
+    }
+
+    @Test
+    public void testDoesPassMatch2(){
+        User user = User.Employee;
+        String username = "calzhe";
+        String password = "password";
+        Assert.assertTrue(a.doesPassMatch(user,username,password));
+    }
+
+    @Test
+    public void testDoesPassMatch3(){
+        User user = User.Admin;
+        String username = "august";
+        String password = "password";
+        Assert.assertTrue(a.doesPassMatch(user,username,password));
+    }
+
+    @Test
+    public void testDoesPassMatch4(){
+        User user = User.Employee;
+        String username = "a";
+        String password = "1";
+        Assert.assertFalse(a.doesPassMatch(user,username,password));
+    }
+
+    @Test
+    public void testDoesPassMatch5(){
+        User user = User.Admin;
+        String username = "calzhe";
+        String password = "password";
+        Assert.assertFalse(a.doesPassMatch(user,username,password));
+    }
+
+    @Test
+    public void testDoesPassMatch6(){
+        User user = User.Customer;
+        String username = "august";
+        String password = "password";
+        Assert.assertFalse(a.doesPassMatch(user,username,password));
+    }
+
+    @Test
+    public void testDoesPassMatch7(){
+        User user = User.Customer;
+        String username = "a";
+        String password = "2";
+        Assert.assertFalse(a.doesPassMatch(user,username,password));
+    }
+
+    @Test
+    public void testDoesPassMatch8(){
+        User user = User.Employee;
+        String username = "calzhe";
+        String password = "pssword";
+        Assert.assertFalse(a.doesPassMatch(user,username,password));
+    }
+
+    @Test
+    public void testDoesPassMatch9(){
+        User user = User.Admin;
+        String username = "august";
+        String password = "pssword";
+        Assert.assertFalse(a.doesPassMatch(user,username,password));
+    }
+
+    @Test
+    public void testDoesPassMatch10(){
+        User user = User.Admin;
+        String username = "august";
+        String password = "";
+        Assert.assertFalse(a.doesPassMatch(user,username,password));
+    }
+
+    @Test
+    public void testDoesPassMatch11(){
+        User user = User.Admin;
+        String username = "";
+        String password = "password";
+        Assert.assertFalse(a.doesPassMatch(user,username,password));
+    }
+
+    @Test
+    public void testDoesPassMatch12(){
+        User user = User.Admin;
+        String username = "";
+        String password = "";
+        Assert.assertFalse(a.doesPassMatch(user,username,password));
+    }
 }
