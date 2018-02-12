@@ -16,15 +16,8 @@ public class ReadObjectData {
             return (BankAccount)in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            if (in != null){
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+
         System.out.println("No bank account found");
         return new BankAccount();
     }
@@ -35,15 +28,8 @@ public class ReadObjectData {
             return (BankProfile)in.readObject();
         } catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
-        } finally {
-            if (in != null){
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+
         System.out.println("No bank profile found");
         return new BankProfile();
     }
