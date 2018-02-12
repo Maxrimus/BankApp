@@ -3,6 +3,8 @@ package com.ex;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+
 public class ValidFormatTest {
 
     @Test
@@ -218,5 +220,13 @@ public class ValidFormatTest {
         boolean expected = false;
         String input = "";
         Assert.assertEquals(expected,ValidFormat.hasNoSpaces(input));
+    }
+
+    @Test
+    public void testLoopUntilValidA1(){
+        ByteArrayInputStream in = new ByteArrayInputStream("My string".getBytes());
+        System.setIn(in);
+
+        System.setIn(System.in);
     }
 }
