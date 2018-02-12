@@ -1,7 +1,7 @@
 package com.ex.serialize;
 
-import com.ex.accprofile.BankAccount;
-import com.ex.accprofile.BankProfile;
+import com.ex.accprofile.AllBankAccounts;
+import com.ex.accprofile.AllBankProfiles;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,42 +10,67 @@ import java.io.ObjectInputStream;
 public class ReadObjectData {
     static ObjectInputStream in = null;
 
-    public static BankAccount readBankData(String username){
+    public static AllBankAccounts loadBankData(){
         try {
-            in = new ObjectInputStream(new FileInputStream("resources/bankaccounts"+ username));
-            return (BankAccount)in.readObject();
+            in = new ObjectInputStream(new FileInputStream("resources/bankaccdata"));
+            return (AllBankAccounts)in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            if (in != null){
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
-        System.out.println("No bank account found");
-        return new BankAccount();
+        return new AllBankAccounts();
     }
 
-    public static BankProfile readProfileData(String username){
+    public static AllBankProfiles loadProfileData(){
         try {
-            in = new ObjectInputStream(new FileInputStream("resources/bankprofiles"));
-            return (BankProfile)in.readObject();
-        } catch (IOException | ClassNotFoundException e){
+            in = new ObjectInputStream(new FileInputStream("resources/bankprodata"));
+            return (AllBankProfiles)in.readObject();
+        } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (in != null){
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        System.out.println("No bank profile found");
-        return new BankProfile();
+
+        return new AllBankProfiles();
     }
+
+
+
+//    public static BankAccount readBankData(String username){
+//        try {
+//            in = new ObjectInputStream(new FileInputStream("resources/bankaccounts"+ username));
+//            return (BankAccount)in.readObject();
+//        } catch (IOException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (in != null){
+//                try {
+//                    in.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        System.out.println("No bank account found");
+//        return new BankAccount();
+//    }
+//
+//    public static BankProfile readProfileData(String username){
+//        try {
+//            in = new ObjectInputStream(new FileInputStream("resources/bankprofiles"));
+//            return (BankProfile)in.readObject();
+//        } catch (IOException | ClassNotFoundException e){
+//            e.printStackTrace();
+//        } finally {
+//            if (in != null){
+//                try {
+//                    in.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        System.out.println("No bank profile found");
+//        return new BankProfile();
+//    }
 
 }
