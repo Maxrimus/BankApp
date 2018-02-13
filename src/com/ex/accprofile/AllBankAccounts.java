@@ -13,7 +13,7 @@ public class AllBankAccounts implements Serializable {
 
     }
 
-    public static BankAccount extractAccount(String username){
+    public BankAccount extractAccount(String username){
 
         for (int i = 0; i < bankaccs.size(); i++){
             if (bankaccs.get(i).getUsername().equals(username)){
@@ -22,5 +22,9 @@ public class AllBankAccounts implements Serializable {
             }
         }
         return new BankAccount("NO ACCOUNT FOUND IN FILE");
+    }
+
+    public void insertAccount(BankAccount bankAccount){
+        bankaccs.add(bankAccount);
     }
 }

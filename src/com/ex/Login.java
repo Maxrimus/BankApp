@@ -8,7 +8,13 @@ public class Login {
     User user;
 
     public Login(User user){    //First instance of login attempt
+
+        //MOVE THIS TO LOGIN METHOD!
         this.user = user;
+        login();
+    }
+
+    public boolean login() {
         System.out.println("Enter username");
         String username = Main.getUserInput();
         username = ValidFormat.loopUntilValid(username, "ALPHANUM");
@@ -16,10 +22,7 @@ public class Login {
         System.out.println("Enter password");
         String password = Main.getUserInput();
         password = ValidFormat.loopUntilValid(password,"SPACE");
-        login(username,password);
-    }
 
-    public boolean login(String username, String password) {
         boolean exist = accounts.doesUserExist(user, username);
         boolean validlogin = accounts.doesPassMatch(user, username, password);
         int loginattempts = 0;
@@ -28,7 +31,7 @@ public class Login {
         while (!exist || !validlogin){
             loginattempts++;
 
-            if (loginattempts == 3) {
+            if (loginattempts == 5) {
                 System.out.println("Invalid Username or Password");
                 System.out.println("You've exceeded login attempts");
                 System.out.println("Please try again later\n\n\n");
@@ -56,11 +59,11 @@ public class Login {
 
         //Implement next actions
         if (user == User.Customer) {
-            userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 4);
+            userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 5);
         } else if (user == User.Employee) {
-            userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 3);
-        } else if (user == User.Admin) {
             userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 4);
+        } else if (user == User.Admin) {
+            userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 5);
         }
 
         return true;
@@ -75,12 +78,14 @@ public class Login {
             System.out.println("\t2- Withdraw");
             System.out.println("\t3- Deposit");
             System.out.println("\t4- Transfer Funds");
+            System.out.println("\t5- Exit");
         } else if (user == User.Employee) {
             System.out.println("||Employee Portal||\n");
             System.out.println("|Specify your next action|");
             System.out.println("\t1- Pull up a customer's bank account");
             System.out.println("\t2- Pull up a customer's bank profile");
             System.out.println("\t3- Judge open account applications");
+            System.out.println("\t4- Exit");
         } else if (user == User.Admin) {
             System.out.println("||Admin Portal||\n");
             System.out.println("|Specify your next action|");
@@ -88,6 +93,7 @@ public class Login {
             System.out.println("\t2- Pull up a customer's bank profile");
             System.out.println("\t3- Judge open account applications");
             System.out.println("\t4- Cancel a customer's account");
+            System.out.println("\t5- Exit");
         }
     }
 

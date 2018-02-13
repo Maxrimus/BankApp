@@ -1,5 +1,6 @@
 package com.ex.serialize;
 
+import com.ex.AllAccounts;
 import com.ex.accprofile.AllBankAccounts;
 import com.ex.accprofile.AllBankProfiles;
 
@@ -9,6 +10,23 @@ import java.io.ObjectOutputStream;
 
 public class WriteObjectData {
     static ObjectOutputStream out = null;
+
+    public static void writeLoginInfo(AllAccounts accs){
+        try {
+            out = new ObjectOutputStream(new FileOutputStream("resources/logininfo"));
+            out.writeObject(accs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     public static void writeBankAccounts(AllBankAccounts allBankAccounts){
         try {

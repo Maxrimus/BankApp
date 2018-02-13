@@ -1,5 +1,7 @@
 package com.ex;
 
+import com.ex.serialize.ReadObjectData;
+import com.ex.serialize.WriteObjectData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.Scanner;
@@ -9,13 +11,18 @@ public class Main {
 
     static Logger logger = LogManager.getLogger();
     static Scanner sc = new Scanner(System.in);
-    static AllAccounts accounts = AllAccounts.getAccounts();
+    public static AllAccounts accounts = AllAccounts.getAccounts();
+
+    static ReadObjectData reader = new ReadObjectData();
 
     public Main(){
+        //Loading login data from file
+        accounts = reader.loadLoginData();
     }
 
     public static void main(String[] args) {
         //Calling application to start
+        Main m = new Main();
         start();
     }
 
@@ -42,6 +49,9 @@ public class Main {
             } else if (userInput.equals("3")) { //Admin logging in
                 System.out.println("Hello, welcome back!\tInitializing portal login...");
                 Login newlogin = new Login(User.Admin);
+            } else if (userInput.equals("4")){
+                System.out.println("Exiting...");
+                finish();
             }
 
         } else if (userInput.equals("2")) {//Apply for account selected
@@ -80,7 +90,12 @@ public class Main {
 
         } else if (userInput.equals("4")){//Exit selected, Do nothing
             System.out.println("Exiting Client...");
+            finish();
         }
+    }
+
+    public static void finish(){
+        WriteObjectData.writeLoginInfo(accounts);
     }
 
     public static void printMainMenu(){
@@ -96,6 +111,7 @@ public class Main {
         System.out.println("\t1- Customer");
         System.out.println("\t2- Employee");
         System.out.println("\t3- Admin");
+        System.out.println("\t4- Exit");
     }
 
     //Call this in any class or method when console input is needed
