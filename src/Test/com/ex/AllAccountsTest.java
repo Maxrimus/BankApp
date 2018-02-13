@@ -1,11 +1,12 @@
 package com.ex;
 
+import com.ex.serialize.ReadObjectData;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class AllAccountsTest {
 
-    AllAccounts a = AllAccounts.getAccounts();
+    AllAccounts a = ReadObjectData.loadLoginData();
 
     @Test
     public void testDoesUserExist1(){
