@@ -1,8 +1,9 @@
 package com.ex.accprofile;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class BankAccount {
+public class BankAccount implements Serializable{
     private String username;
     private String accountNumber;
     private AccountTypes accountType;
@@ -54,8 +55,8 @@ public class BankAccount {
         rand = new Random();
     }
 
-    @Override
+    /*@Override
     public String toString() {
-        return accountNumber + " " + accountType.name() + " Balance: " + balance;
-    }
+        return "#" + accountNumber + " " + accountType.toString() + " Balance: " + balance;
+    }*/
 }

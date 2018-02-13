@@ -8,7 +8,7 @@ public class AllBankProfiles implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    private static ArrayList<BankProfile> bankpros = new ArrayList<>();
+    private ArrayList<BankProfile> bankpros = new ArrayList<>();
 
     private AllBankProfiles(){
     }

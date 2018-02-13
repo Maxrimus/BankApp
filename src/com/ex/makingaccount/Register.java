@@ -28,7 +28,7 @@ public class Register {
         String userInput = Main.getUserInput();
         userInput = ValidFormat.loopUntilValid(userInput, "ALPHANUM");
         userInput = ValidFormat.loopUntilValid(userInput, "SPACE");
-        userInput = ValidFormat.loopUntilValid(userInput, "EXIST");
+        //userInput = ValidFormat.loopUntilValid(userInput, "EXIST");
         username = userInput;
 
         //Checking if customer has an (username, password) entry in AllAccounts
@@ -42,11 +42,13 @@ public class Register {
         }
 
         System.out.println("Enter Password");
+        userInput = Main.getUserInput();
         userInput = ValidFormat.loopUntilValid(userInput, "SPACE");
         userInput = ValidFormat.loopUntilValid(userInput, "PASSWORD");
         password = userInput;
 
         System.out.println("Enter your email");
+        userInput = Main.getUserInput();
         userInput = ValidFormat.loopUntilValid(userInput, "SPACE");
         userInput = ValidFormat.loopUntilValid(userInput, "EMAIL");
         email = userInput;

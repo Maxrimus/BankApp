@@ -23,6 +23,7 @@ public class Main {
     public Main(){
         //Loading login data from file
         accounts = ReadObjectData.loadLoginData();
+        //AllAccounts.getAccounts().makeAllUsers();
         System.out.println();
     }
 
@@ -89,6 +90,7 @@ public class Main {
                 AllBankProfiles bankProfiles = ReadObjectData.loadProfileData();
                 BankProfile myprof = bankProfiles.extractProfile(newUser.getUsername());
                 myprof.setEmail(newUser.getEmail());
+                accounts.createAccount(newUser.getUsername(),newUser.getPassword());
 
                 System.out.println("You're all set!!\nPlease log in now");
                 Login login = new Login(User.Customer);
@@ -97,8 +99,8 @@ public class Main {
 
         } else if (userInput.equals("4")){//Exit selected, Do nothing
             System.out.println("Exiting Client...");
-            finish();
         }
+        finish();
     }
 
     public static void finish(){

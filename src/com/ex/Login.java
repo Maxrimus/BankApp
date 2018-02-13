@@ -2,6 +2,9 @@ package com.ex;
 
 
 import com.ex.accprofile.AllBankAccounts;
+import com.ex.accprofile.AllBankProfiles;
+import com.ex.accprofile.BankAccount;
+import com.ex.bankpowers.AdminCancellingPower;
 import com.ex.bankpowers.JudgeApplications;
 
 import static com.ex.Main.accounts;
@@ -69,6 +72,7 @@ public class Login {
             EmployeeActions(userInput,username);
         } else if (user == User.Admin) {
             userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 5);
+            AdminActions(userInput,username);
         }
 
         return true;
@@ -77,7 +81,8 @@ public class Login {
     public void CustomerActions(String userInput, String username){
         switch(userInput){
             case "1":
-                System.out.println(AllBankAccounts.getInstance().extractAccount(username).toString());
+                BankAccount bankAccount = AllBankProfiles.getInstance().extractProfile(username).getAccounts().get(0);
+                System.out.println("$" + bankAccount.getBalance());
                 break;
             case "2":
                 break;
@@ -86,6 +91,7 @@ public class Login {
             case "4":
                 break;
             case "5":
+                System.out.println();
                 break;
         }
     }
@@ -101,6 +107,24 @@ public class Login {
                 j.judge();
                 break;
             case "4":
+                break;
+        }
+    }
+
+    public void AdminActions(String userInput, String username){
+        switch(userInput){
+            case "1":
+                break;
+            case "2":
+                break;
+            case "3":
+                JudgeApplications j = new JudgeApplications();
+                j.judge();
+                break;
+            case "4":
+                AdminCancellingPower.Cancel();
+                break;
+            case "5":
                 break;
         }
     }

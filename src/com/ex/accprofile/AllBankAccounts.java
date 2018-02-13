@@ -8,7 +8,11 @@ public class AllBankAccounts implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static ArrayList<BankAccount> bankaccs = new ArrayList<>();
+    private ArrayList<BankAccount> bankaccs = new ArrayList<>();
+
+    public ArrayList<BankAccount> getBankaccs() {
+        return bankaccs;
+    }
 
     private static int numberOfAccounts;
 
@@ -54,5 +58,16 @@ public class AllBankAccounts implements Serializable {
 
     public void insertAccount(BankAccount bankAccount){
         bankaccs.add(bankAccount);
+        System.out.println();
+    }
+
+    @Override
+    public String toString() {
+        String toReturn = "Accounts: ";
+        toReturn += "\n\n";
+        for(int i = 0; i < bankaccs.size(); i++){
+            toReturn += (i+1) + " " + bankaccs.get(i).toString();
+        }
+        return toReturn;
     }
 }

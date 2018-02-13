@@ -1,5 +1,9 @@
 package com.ex.bankpowers;
 
+import com.ex.Main;
+import com.ex.ValidFormat;
+import com.ex.accprofile.AllBankAccounts;
+
 public class AdminCancellingPower {
 
     //There are methods defined in AllAccounts to deleteAccount(String username)
@@ -9,4 +13,11 @@ public class AdminCancellingPower {
     //
     //There is a method defined in AllBankProfiles to deleteProfile(String username)
     //There is a method defined in AllBankAccounts to deleteBankAccount(String username)
+    public static void Cancel(){
+        System.out.println("Which account would you like to cancel?");
+        System.out.println(AllBankAccounts.getInstance().toString());
+        String userInput = Main.getUserInput();
+        userInput = ValidFormat.loopUntilValid(userInput,"VALUE",1,AllBankAccounts.getInstance().getNumberOfAccounts());
+        AllBankAccounts.getInstance().getBankaccs().remove(Integer.parseInt(userInput) - 1);
+    }
 }

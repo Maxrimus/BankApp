@@ -5,9 +5,11 @@ import com.ex.User;
 import com.ex.ValidFormat;
 import com.ex.accprofile.BankAccount;
 
+import java.io.Serializable;
+
 import static com.ex.Main.accounts;
 
-public class AccountApplication {
+public class AccountApplication implements Serializable {
     private String username;
     private String email;
     private String fullname;

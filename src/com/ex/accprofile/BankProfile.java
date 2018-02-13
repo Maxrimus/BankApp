@@ -1,9 +1,10 @@
 package com.ex.accprofile;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BankProfile {
+public class BankProfile implements Serializable{
 
     private String username;
     private String fullname;
@@ -14,6 +15,11 @@ public class BankProfile {
     private String employment;
     private String employment2;
     private List<BankAccount> accounts;
+
+    public List<BankAccount> getAccounts() {
+        return accounts;
+    }
+
     private int numberOfAccounts;
     private AllBankAccounts aBA = AllBankAccounts.getInstance();
 
