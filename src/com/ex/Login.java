@@ -8,8 +8,6 @@ public class Login {
     User user;
 
     public Login(User user){    //First instance of login attempt
-
-        //MOVE THIS TO LOGIN METHOD!
         this.user = user;
         login();
     }
@@ -26,6 +24,10 @@ public class Login {
         boolean exist = accounts.doesUserExist(user, username);
         boolean validlogin = accounts.doesPassMatch(user, username, password);
         int loginattempts = 0;
+
+        for (String s : accounts.getAdminUsernames()){
+            System.out.println(s);
+        }
 
         //If username or password is invalid, keep looping and ask to try again
         while (!exist || !validlogin){
@@ -45,7 +47,7 @@ public class Login {
             System.out.println("Enter username");
             username = Main.getUserInput();
             username = ValidFormat.loopUntilValid(username, "ALPHANUM");
-            username = ValidFormat.loopUntilValid(password,"SPACE");
+            username = ValidFormat.loopUntilValid(username,"SPACE");
             System.out.println("Enter password");
             password = Main.getUserInput();
             password = ValidFormat.loopUntilValid(password, "SPACE");
