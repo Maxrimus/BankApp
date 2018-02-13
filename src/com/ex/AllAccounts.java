@@ -1,5 +1,10 @@
 package com.ex;
 
+import com.ex.accprofile.AllBankAccounts;
+import com.ex.accprofile.AllBankProfiles;
+import com.ex.accprofile.BankAccount;
+import com.ex.accprofile.BankProfile;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -45,7 +50,6 @@ public class AllAccounts implements Serializable{
         customerPass.put("a","1");
         customerPass.put("b","2");
         customerPass.put("c","3");
-
     }
 
 

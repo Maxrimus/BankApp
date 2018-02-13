@@ -1,6 +1,8 @@
 package com.ex;
 
 
+import com.ex.accprofile.AllBankAccounts;
+
 import static com.ex.Main.accounts;
 import static com.ex.Main.start;
 
@@ -45,7 +47,7 @@ public class Login {
             System.out.println("Enter username");
             username = Main.getUserInput();
             username = ValidFormat.loopUntilValid(username, "ALPHANUM");
-            username = ValidFormat.loopUntilValid(password,"SPACE");
+            username = ValidFormat.loopUntilValid(username,"SPACE");
             System.out.println("Enter password");
             password = Main.getUserInput();
             password = ValidFormat.loopUntilValid(password, "SPACE");
@@ -60,6 +62,7 @@ public class Login {
         //Implement next actions
         if (user == User.Customer) {
             userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 5);
+            CustomerActions(userInput, username);
         } else if (user == User.Employee) {
             userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 4);
         } else if (user == User.Admin) {
@@ -67,6 +70,22 @@ public class Login {
         }
 
         return true;
+    }
+
+    public void CustomerActions(String userInput, String username){
+        switch(userInput){
+            case "1":
+                System.out.println(AllBankAccounts.getInstance().extractAccount(username).toString());
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+            case "4":
+                break;
+            case "5":
+                break;
+        }
     }
 
     public void printUserMenu(User user) {

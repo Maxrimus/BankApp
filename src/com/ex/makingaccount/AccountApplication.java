@@ -3,11 +3,13 @@ package com.ex.makingaccount;
 import com.ex.Main;
 import com.ex.User;
 import com.ex.ValidFormat;
+import com.ex.accprofile.BankAccount;
 
 import static com.ex.Main.accounts;
 
 public class AccountApplication {
     private String username;
+    private String email;
     private String fullname;
     private String fullname2;
     private String ssn;
@@ -28,6 +30,11 @@ public class AccountApplication {
         username = userInput;
         accounts.newUsername(User.Customer,username);
 
+        System.out.println("Enter Email:");
+        userInput = Main.getUserInput();
+        userInput = ValidFormat.loopUntilValid(userInput,"EMAIL");
+        email = userInput;
+
         System.out.println("Enter your full name:");
         userInput = Main.getUserInput();
         userInput = ValidFormat.loopUntilValid(userInput, "NAME");
@@ -42,7 +49,7 @@ public class AccountApplication {
 
         switch (userInput) {
             case "1":
-                accountType = 1;
+                accountType = BankAccount.AccountTypes.CHECKING.getValue();
                 System.out.println("Enter your SSN in the format of ***-**-****");
                 userInput = Main.getUserInput();
                 userInput = ValidFormat.loopUntilValid(userInput, "SSN");
@@ -54,14 +61,19 @@ public class AccountApplication {
                 employment = userInput;
                 break;
             case "2":
-                accountType = 2;
+                accountType = BankAccount.AccountTypes.SAVINGS.getValue();
                 System.out.println("Enter your SSN in the format of ***-**-****");
                 userInput = Main.getUserInput();
                 userInput = ValidFormat.loopUntilValid(userInput, "SSN");
                 ssn = userInput;
+
+                System.out.println("What is your current job title?");
+                userInput = Main.getUserInput();
+                userInput = ValidFormat.loopUntilValid(userInput, "LETTERS");
+                employment = userInput;
                 break;
             case "3":
-                accountType = 3;
+                accountType = BankAccount.AccountTypes.JOINT.getValue();
                 System.out.println("Enter your spouse's full name:");
                 userInput = Main.getUserInput();
                 userInput = ValidFormat.loopUntilValid(userInput, "NAME");
@@ -89,6 +101,8 @@ public class AccountApplication {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getEmail() { return email; }
 
     public void setFullname(String fullname) {
         this.fullname = fullname;

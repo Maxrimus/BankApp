@@ -10,8 +10,11 @@ public class AllApplications implements Serializable {
 
     private static ArrayList<AccountApplication> bankapps = new ArrayList<>();
 
-    private AllApplications() {
+    public int getAmount(){
+        return bankapps.size();
+    }
 
+    private AllApplications() {
     }
 
     private static AllApplications applications = new AllApplications();
@@ -34,11 +37,27 @@ public class AllApplications implements Serializable {
         }
     }
 
-    public void closeApplication(AccountApplication application){
-        bankapps.add(application);
-    }
+    public void closeApplication(AccountApplication application){ bankapps.remove(application); }
 
     public void enterNewApplication(AccountApplication app){
         bankapps.add(app);
+    }
+
+    public String toString(){
+        String toReturn = "Applications: ";
+        for(int i = 0; i < bankapps.size(); i++){
+            toReturn += "\n\n";
+            toReturn += (i+1) + " " + bankapps.get(i).toString();
+        }
+        return toReturn;
+    }
+
+    public String getAppNames(){
+        String toReturn = "Applications: ";
+        for(int i = 0; i < bankapps.size(); i++){
+            toReturn += "\n\n";
+            toReturn += (i+1) + " " + bankapps.get(i).getFullname();
+        }
+        return toReturn;
     }
 }

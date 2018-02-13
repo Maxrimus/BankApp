@@ -9,9 +9,18 @@ public class AllBankAccounts implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private static ArrayList<BankAccount> bankaccs = new ArrayList<>();
+    private static int numberOfAccounts;
+
+    public int getNumberOfAccounts(){
+        return numberOfAccounts;
+    }
+
+    public void incrementNumbersOfAccounts(){
+        numberOfAccounts++;
+    }
 
     private AllBankAccounts() {
-
+        numberOfAccounts = 0;
     }
 
     private static AllBankAccounts allBankAccounts = new AllBankAccounts();
