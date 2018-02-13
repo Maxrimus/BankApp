@@ -78,7 +78,6 @@ public class AccountApplication {
                 userInput = Main.getUserInput();
                 userInput = ValidFormat.loopUntilValid(userInput, "NAME");
                 fullname2 = userInput;
-
                 System.out.println("Enter your SSN in the format of ***-**-****");
                 userInput = Main.getUserInput();
                 userInput = ValidFormat.loopUntilValid(userInput, "SSN");
