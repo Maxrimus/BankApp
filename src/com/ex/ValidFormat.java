@@ -118,7 +118,7 @@ public class ValidFormat {
             case "EXIST":{
                 boolean invalid = true;
                 while (invalid){
-                    if (accounts.doesUserExist(User.Customer, input)){
+                    if (!accounts.doesUserExist(User.Customer, input)){
                         invalid = false;
                     }
                     else{

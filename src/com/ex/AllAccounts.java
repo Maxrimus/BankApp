@@ -1,10 +1,14 @@
 package com.ex;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 
 //This class is a Singleton
-public class AllAccounts {
+public class AllAccounts implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+
     //hashset to check if username exists
     private HashSet<String> customerUsernames = new HashSet<>();
     private HashSet<String> employeeUsernames = new HashSet<>();
@@ -16,11 +20,12 @@ public class AllAccounts {
     private HashMap<String,String> employeePass = new HashMap<>();
     private HashMap<String,String> adminPass = new HashMap<>();
 
-    public HashSet<String> getEmployeeUsernames() {
-        return employeeUsernames;
-    }
 
     private AllAccounts(){
+    }
+
+    //Calls this on application start up if the logininfo file is empty
+    public void makeAllUsers(){
         //Initializing Employee accounts
         employeeUsernames.add("calzhe");
         employeeUsernames.add("maxrimus");
@@ -40,7 +45,9 @@ public class AllAccounts {
         customerPass.put("a","1");
         customerPass.put("b","2");
         customerPass.put("c","3");
+
     }
+
 
     private static AllAccounts accounts = new AllAccounts();
 
@@ -48,6 +55,11 @@ public class AllAccounts {
         if (accounts == null){
             accounts = new AllAccounts();
         }
+        return accounts;
+    }
+
+    public static AllAccounts setAccounts(AllAccounts accs){
+        accounts = accs;
         return accounts;
     }
 
@@ -115,7 +127,18 @@ public class AllAccounts {
     }
 
     public void deleteAccount(String username){
-        customerUsernames.remove(username);
         customerPass.remove(username);
+    }
+
+    public void deleteUsername(String username){
+        customerUsernames.remove(username);
+    }
+
+    public HashSet<String> getAdminUsernames() {
+        return adminUsernames;
+    }
+
+    public HashMap<String, String> getCustomerPass() {
+        return customerPass;
     }
 }
