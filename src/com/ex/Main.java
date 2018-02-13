@@ -23,6 +23,7 @@ public class Main {
     public Main(){
         //Loading login data from file
         accounts = ReadObjectData.loadLoginData();
+        System.out.println();
     }
 
     public static void main(String[] args) {

@@ -1,5 +1,7 @@
 package com.ex.makingaccount;
 
+import com.ex.serialize.ReadObjectData;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -15,6 +17,7 @@ public class AllApplications implements Serializable {
     }
 
     private AllApplications() {
+        //AllApplications applications = ReadObjectData.loadApplications();
     }
 
     private static AllApplications applications = new AllApplications();

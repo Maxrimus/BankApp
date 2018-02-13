@@ -2,6 +2,7 @@ package com.ex;
 
 
 import com.ex.accprofile.AllBankAccounts;
+import com.ex.bankpowers.JudgeApplications;
 
 import static com.ex.Main.accounts;
 import static com.ex.Main.start;
@@ -65,6 +66,7 @@ public class Login {
             CustomerActions(userInput, username);
         } else if (user == User.Employee) {
             userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 4);
+            EmployeeActions(userInput,username);
         } else if (user == User.Admin) {
             userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 5);
         }
@@ -84,6 +86,21 @@ public class Login {
             case "4":
                 break;
             case "5":
+                break;
+        }
+    }
+
+    public void EmployeeActions(String userInput, String username){
+        switch(userInput){
+            case "1":
+                break;
+            case "2":
+                break;
+            case "3":
+                JudgeApplications j = new JudgeApplications();
+                j.judge();
+                break;
+            case "4":
                 break;
         }
     }

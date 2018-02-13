@@ -12,6 +12,9 @@ import com.ex.serialize.ReadObjectData;
 
 public class JudgeApplications {
 
+    public JudgeApplications(){
+    }
+
     public void judge(){
         //Must call ReadObjectData.loadApplications() in order to pull up open applications
         AllApplications allApps = ReadObjectData.loadApplications();
