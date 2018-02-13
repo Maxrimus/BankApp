@@ -386,11 +386,13 @@ public class ValidFormat {
 
         String[] line = input.split("\\.");
 
+
+
         if (!line[1].equals("com") && !line[1].equals("edu")){
             System.out.println("Not a '.com' or '.edu'");
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
 
