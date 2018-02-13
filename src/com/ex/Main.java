@@ -124,7 +124,7 @@ public class Main {
 
     //Call this in any class or method when console input is needed
     public static String getUserInput(){
-        return sc.next();
+        return sc.nextLine();
     }
 
 }

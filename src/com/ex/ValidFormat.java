@@ -223,7 +223,7 @@ public class ValidFormat {
         }
 
         for (int i = 0; i < input.length(); i++){
-            if (!Character.isLetter(input.charAt(i))){
+            if (!Character.isLetter(input.charAt(i)) && input.charAt(i) != ' '){
                 System.out.println("You entered number(s)");
                 return false;
             }
