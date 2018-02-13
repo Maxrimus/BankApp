@@ -1,7 +1,12 @@
 package com.ex.makingaccount;
 
 import com.ex.Main;
+import com.ex.User;
 import com.ex.ValidFormat;
+import com.ex.accprofile.AllBankAccounts;
+import com.ex.accprofile.BankAccount;
+
+import static com.ex.Main.accounts;
 
 public class Register {
     private String username;
@@ -17,13 +22,24 @@ public class Register {
 
     public Register() {}
 
-    public void register(){
+    public boolean register(){
+
         System.out.println("Enter Username:");
         String userInput = Main.getUserInput();
         userInput = ValidFormat.loopUntilValid(userInput, "ALPHANUM");
         userInput = ValidFormat.loopUntilValid(userInput, "SPACE");
         userInput = ValidFormat.loopUntilValid(userInput, "EXIST");
         username = userInput;
+
+        //Checking if customer has an (username, password) entry in AllAccounts
+        if (!accounts.getCustomerPass().containsKey(username)){
+            System.out.println("There is no account with that username");
+            System.out.println("Please make sure you sent in a bank application before trying to register");
+            System.out.println("If you already applied, your application may not have been approved yet or has been denied");
+            System.out.println("Please call customer service to find out your application status\n");
+            System.out.println("Exiting...");
+            return false;
+        }
 
         System.out.println("Enter Password");
         userInput = ValidFormat.loopUntilValid(userInput, "SPACE");
@@ -35,7 +51,7 @@ public class Register {
         userInput = ValidFormat.loopUntilValid(userInput, "EMAIL");
         email = userInput;
 
-
+        return true;
     }
 
     public void setUsername(String username) {
@@ -50,7 +66,19 @@ public class Register {
         this.email = email;
     }
 
-//    public void setSecurityQ1(String securityQ1) {
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    //    public void setSecurityQ1(String securityQ1) {
 //        this.securityQ1 = securityQ1;
 //    }
 //

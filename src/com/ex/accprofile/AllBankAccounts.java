@@ -3,14 +3,24 @@ package com.ex.accprofile;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+//This class is a singleton
 public class AllBankAccounts implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private static ArrayList<BankAccount> bankaccs = new ArrayList<>();
 
-    public AllBankAccounts() {
+    private AllBankAccounts() {
 
+    }
+
+    private static AllBankAccounts allBankAccounts = new AllBankAccounts();
+
+    public static AllBankAccounts getInstance(){
+        if (allBankAccounts == null){
+            allBankAccounts = new AllBankAccounts();
+        }
+        return allBankAccounts;
     }
 
     public BankAccount extractAccount(String username){
@@ -21,7 +31,15 @@ public class AllBankAccounts implements Serializable {
                 return bankaccs.get(i);
             }
         }
-        return new BankAccount("NO ACCOUNT FOUND IN FILE");
+        return new BankAccount();
+    }
+
+    public void deleteBankAccount(String username){
+        for (int i = 0; i < bankaccs.size(); i++){
+            if (bankaccs.get(i).getUsername().equals(username)){
+                bankaccs.remove(bankaccs.get(i));
+            }
+        }
     }
 
     public void insertAccount(BankAccount bankAccount){
