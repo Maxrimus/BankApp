@@ -176,11 +176,6 @@ public class ValidFormat {
 
         int n = input.length();
         if (input != null) {
-            if (input.length() < 1){
-                System.out.println("You did not enter anything");
-                return false;
-            }
-
             if (n >= minLength && n <= maxLength) {
                 return true;
             } else {
@@ -308,14 +303,10 @@ public class ValidFormat {
             return false;
         }
 
-        String specialchar = "/*!@#$%^&*()\"{}_[]|\\?/<>,.";
+        //String specialchar = "/*!@#$%^&*()\"{}_[]|\\?/<>,.";
 
-        if (input.length() < 8){
+        if (input.length() < 6){
             System.out.println("Your password must be at least 6 characters long");
-            return false;
-        }
-        else if (!input.matches("[^A-Za-z0-9 ]")){
-            System.out.println("Your password must contain a special character");
             return false;
         }
 
@@ -393,9 +384,9 @@ public class ValidFormat {
             return false;
         }
 
-        String[] line = input.split(".");
+        String[] line = input.split("\\.");
 
-        if (line[1].equals("com") || line[1].equals("edu")){
+        if (!line[1].equals("com") && !line[1].equals("edu")){
             System.out.println("Not a '.com' or '.edu'");
             return true;
         }
