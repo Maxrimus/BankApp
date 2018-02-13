@@ -127,11 +127,18 @@ public class AllAccounts implements Serializable{
     }
 
     public void deleteAccount(String username){
-        customerUsernames.remove(username);
         customerPass.remove(username);
+    }
+
+    public void deleteUsername(String username){
+        customerUsernames.remove(username);
     }
 
     public HashSet<String> getAdminUsernames() {
         return adminUsernames;
+    }
+
+    public HashMap<String, String> getCustomerPass() {
+        return customerPass;
     }
 }
