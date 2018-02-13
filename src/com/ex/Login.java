@@ -29,10 +29,6 @@ public class Login {
         boolean validlogin = accounts.doesPassMatch(user, username, password);
         int loginattempts = 0;
 
-        for (String s : accounts.getAdminUsernames()){
-            System.out.println(s);
-        }
-
         //If username or password is invalid, keep looping and ask to try again
         while (!exist || !validlogin){
             loginattempts++;
