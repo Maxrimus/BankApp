@@ -386,12 +386,25 @@ public class ValidFormat {
 
         String[] line = input.split("\\.");
 
+        if (line.length < 2){
+            return false;
+        }
 
-
-        if (!line[1].equals("com") && !line[1].equals("edu")){
+        if (!line[line.length-1].equals("com") && !line[line.length-1].equals("edu")){
             System.out.println("Not a '.com' or '.edu'");
             return false;
         }
+
+        line = input.split("\\@");
+
+        if (line.length < 2){
+            return false;
+        }
+
+        if (!isAlphanum(line[0])){
+            return false;
+        }
+
         return true;
     }
 
