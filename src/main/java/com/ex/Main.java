@@ -2,7 +2,6 @@ package com.ex;
 
 import com.ex.accprofile.AllBankAccounts;
 import com.ex.accprofile.AllBankProfiles;
-import com.ex.accprofile.BankAccount;
 import com.ex.accprofile.BankProfile;
 import com.ex.makingaccount.AccountApplication;
 import com.ex.makingaccount.AllApplications;
@@ -11,18 +10,44 @@ import com.ex.serialize.ReadObjectData;
 import com.ex.serialize.WriteObjectData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
+import java.sql.*;
 
 
 public class Main {
 
     static Logger logger = LogManager.getLogger();
     static Scanner sc = new Scanner(System.in);
+    public static Connection conn;
     public static AllAccounts accounts = AllAccounts.getAccounts();
+    public static AllApplications allApplications = AllApplications.getApplications();
+    public static AllBankAccounts allBankAccounts = AllBankAccounts.getInstance();
+    public static AllBankProfiles allBankProfiles = AllBankProfiles.getInstance();
 
     public Main(){
         //Loading login data from file
-        accounts = ReadObjectData.loadLoginData();
+        try {
+            SetupDatabase();
+            ReadObjectData.loadLoginData();
+            ReadObjectData.loadApplications();
+            ReadObjectData.loadBankData();
+            ReadObjectData.loadProfileData();
+            accounts.PrintLogins();
+            System.out.println(allApplications.toString());
+            System.out.println(allBankAccounts.toString());
+            System.out.println(allBankProfiles.toString());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         //AllAccounts.getAccounts().makeAllUsers();
         System.out.println();
     }
@@ -31,6 +56,38 @@ public class Main {
         //Calling application to start
         Main m = new Main();
         start();
+    }
+
+    public void SetupDatabase() throws SQLException{
+        String serverURL = "jdbc:postgresql://rev-pg-test.cyj6am5rzlko.us-east-2.rds.amazonaws.com:5432/rev_db";
+        Properties props = new Properties();
+        String username = "";
+        String password = "";
+        List<String> lines = new ArrayList<String>();
+        String line = "";
+        String dataFile = "resources/credentials.txt";
+        BufferedReader bufferedReader = null;
+
+        try {
+            bufferedReader = new BufferedReader(new FileReader(dataFile));
+            while((line = bufferedReader.readLine()) != null) lines.add(line);
+            bufferedReader.close();
+        }
+        catch(FileNotFoundException ex) {
+            System.out.println(
+                    "Unable to open file '" +
+                            dataFile + "'");
+        }
+        catch(IOException ex) {
+            System.out.println(
+                    "Error reading file '"
+                            + dataFile + "'");
+        }
+        username = lines.get(0);
+        password = lines.get(1);
+        props.setProperty("user",username);
+        props.setProperty("password",password);
+        conn = DriverManager.getConnection(serverURL,props);
     }
 
     public static void start(){
@@ -87,7 +144,7 @@ public class Main {
             Register newUser = new Register();
 
             if (newUser.register()){
-                AllBankProfiles bankProfiles = ReadObjectData.loadProfileData();
+                AllBankProfiles bankProfiles = AllBankProfiles.getInstance();
                 BankProfile myprof = bankProfiles.extractProfile(newUser.getUsername());
                 myprof.setEmail(newUser.getEmail());
                 accounts.createAccount(newUser.getUsername(),newUser.getPassword());

@@ -1,5 +1,7 @@
 package com.ex.accprofile;
 
+import com.ex.makingaccount.AccountApplication;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -48,15 +50,18 @@ public class BankAccount implements Serializable{
 
     public BankAccount(){}
 
-    public BankAccount(String username, String accountNumber, double startingBalance){
+    public BankAccount(String username, String accountNumber, double startingBalance, Integer accountType){
         this.username = username;
         this.accountNumber = accountNumber;
         this.balance = startingBalance;
+        if(accountType == 1) this.accountType = AccountTypes.CHECKING;
+        if(accountType == 2) this.accountType = AccountTypes.SAVINGS;
+        if(accountType == 3) this.accountType = AccountTypes.JOINT;
         rand = new Random();
     }
 
-    /*@Override
+    @Override
     public String toString() {
         return "#" + accountNumber + " " + accountType.toString() + " Balance: " + balance;
-    }*/
+    }
 }

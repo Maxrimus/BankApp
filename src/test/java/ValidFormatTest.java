@@ -1,5 +1,3 @@
-package Test.com.ex;
-
 import com.ex.ValidFormat;
 import org.junit.Assert;
 import org.junit.Test;

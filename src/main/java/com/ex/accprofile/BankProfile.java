@@ -63,25 +63,22 @@ public class BankProfile implements Serializable{
 
     public BankProfile(){}
 
-    public BankAccount addAccount(int startingBalance){
-        String accountNumber = "" + aBA.getNumberOfAccounts();
-        aBA.incrementNumbersOfAccounts();
-        BankAccount bankAccount = new BankAccount(username,accountNumber,startingBalance);
+    public BankAccount addAccount(int startingBalance, String accountNumber, String username, int accountType){
+        BankAccount bankAccount = new BankAccount(username,accountNumber,startingBalance,accountType);
         accounts.add(bankAccount);
         return bankAccount;
     }
 
     @Override
     public String toString() {
-        return "BankProfile{" +
-                "username='" + username + '\'' +
-                ", fullname='" + fullname + '\'' +
-                ", fullname2='" + fullname2 + '\'' +
-                ", email='" + email + '\'' +
-                ", ssn='" + ssn + '\'' +
-                ", ssn2='" + ssn2 + '\'' +
-                ", employment='" + employment + '\'' +
-                ", employment2='" + employment2 + '\'' +
-                '}';
+        String toReturn = "";
+        toReturn += "Username: " + username + "\n";
+        toReturn += "Full Name: " + fullname + "\n";
+        toReturn += "Email: " + email + "\n";
+        toReturn += "SSN: " + ssn + "\n";
+        toReturn += "Employment: " + employment + "\n";
+        toReturn += "Account Numbers: ";
+        for(BankAccount ba:accounts) toReturn += ba.getAccountNumber() + " ";
+        return toReturn;
     }
 }

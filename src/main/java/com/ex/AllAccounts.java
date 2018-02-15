@@ -8,6 +8,7 @@ import com.ex.accprofile.BankProfile;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 //This class is a Singleton
 public class AllAccounts implements Serializable{
@@ -130,6 +131,14 @@ public class AllAccounts implements Serializable{
         }
     }
 
+    public HashMap<String, String> getEmployeePass() {
+        return employeePass;
+    }
+
+    public HashMap<String, String> getAdminPass() {
+        return adminPass;
+    }
+
     public void createAccount(String username, String password){
         customerPass.put(username, password);
     }
@@ -148,5 +157,14 @@ public class AllAccounts implements Serializable{
 
     public HashMap<String, String> getCustomerPass() {
         return customerPass;
+    }
+
+    public void PrintLogins(){
+        System.out.println("Customer Logins:");
+        for(Map.Entry<String,String> entry:customerPass.entrySet()) System.out.println("Username: " + entry.getKey() + " Password: " + entry.getValue());
+        System.out.println("Employee Logins:");
+        for(Map.Entry<String,String> entry:employeePass.entrySet()) System.out.println("Username: " + entry.getKey() + " Password: " + entry.getValue());
+        System.out.println("Admin Logins:");
+        for(Map.Entry<String,String> entry:adminPass.entrySet()) System.out.println("Username: " + entry.getKey() + " Password: " + entry.getValue());
     }
 }

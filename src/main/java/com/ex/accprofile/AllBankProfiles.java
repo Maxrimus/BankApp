@@ -8,6 +8,10 @@ public class AllBankProfiles implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
+    public ArrayList<BankProfile> getBankpros() {
+        return bankpros;
+    }
+
     private ArrayList<BankProfile> bankpros = new ArrayList<>();
 
     private AllBankProfiles(){
@@ -41,5 +45,14 @@ public class AllBankProfiles implements Serializable{
 
     public void insertProfile(BankProfile bankProfile){
         bankpros.add(bankProfile);
+    }
+
+    @Override
+    public String toString() {
+        String toReturn = "Profiles:" + "\n";
+        for(BankProfile bp:bankpros){
+            toReturn += bp.toString() + "\n\n";
+        }
+        return toReturn;
     }
 }

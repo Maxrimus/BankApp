@@ -23,6 +23,27 @@ public class AccountApplication implements Serializable {
     public AccountApplication() {
     }
 
+    public AccountApplication(String username, String email, Integer accountType, String fullname, String ssn, String employment) {
+        this.username = username;
+        this.email = email;
+        this.accountType = accountType;
+        this.fullname = fullname;
+        this.ssn = ssn;
+        this.employment = employment;
+    }
+
+    public AccountApplication(String username, String email, Integer accountType, String fullname, String ssn, String employment, String fullname2, String ssn2, String employment2) {
+        this.username = username;
+        this.email = email;
+        this.accountType = accountType;
+        this.fullname = fullname;
+        this.ssn = ssn;
+        this.employment = employment;
+        this.fullname2 = fullname2;
+        this.ssn2 = ssn2;
+        this.employment2 = employment2;
+    }
+
     public void apply() {
         System.out.println("Enter Username:");
         String userInput = Main.getUserInput();

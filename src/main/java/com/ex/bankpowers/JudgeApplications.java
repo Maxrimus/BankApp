@@ -20,7 +20,7 @@ public class JudgeApplications {
 
     public void judge(){
         //Must call ReadObjectData.loadApplications() in order to pull up open applications
-        AllApplications allApps = ReadObjectData.loadApplications();
+        AllApplications allApps = Main.allApplications;
         int appNumber = 0;
         if(allApps.getAmount() <= 0) {
             System.out.println("No Applications");
@@ -52,7 +52,7 @@ public class JudgeApplications {
                 BankProfile newProfile = new BankProfile(application.getUsername(), application.getEmail(), application.getFullname(), application.getSsn(),
                         application.getEmployment());
                 AllBankProfiles.getInstance().insertProfile(newProfile);
-                AllBankAccounts.getInstance().insertAccount(newProfile.addAccount(0));
+                //AllBankAccounts.getInstance().insertAccount(newProfile.addAccount(0));
                 AllAccounts.getAccounts().newUsername(User.Customer,application.getUsername());
                 /*WriteObjectData.writeBankAccounts(AllBankAccounts.getInstance());
                 WriteObjectData.writeBankProfiles(AllBankProfiles.getInstance());
@@ -63,7 +63,7 @@ public class JudgeApplications {
                 BankProfile newProfile = new BankProfile(application.getUsername(), application.getEmail(), application.getFullname(), application.getSsn(),
                         application.getEmployment(), application.getFullname2(), application.getSsn2(), application.getEmployment2());
                 AllBankProfiles.getInstance().insertProfile(newProfile);
-                AllBankAccounts.getInstance().insertAccount(newProfile.addAccount(0));
+                //AllBankAccounts.getInstance().insertAccount(newProfile.addAccount(0));
                 AllAccounts.getAccounts().newUsername(User.Customer,application.getUsername());
                 /*WriteObjectData.writeBankAccounts(AllBankAccounts.getInstance());
                 WriteObjectData.writeBankProfiles(AllBankProfiles.getInstance());

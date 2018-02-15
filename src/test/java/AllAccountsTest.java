@@ -1,5 +1,5 @@
-package com.ex;
-
+import com.ex.AllAccounts;
+import com.ex.User;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ public class AllAccountsTest {
 
     AllAccounts a = AllAccounts.getAccounts();
 
-    @Test
+    /*@Test
     public void testDoesUserExist1(){
         String username = "a";
         User user = User.Customer;
@@ -26,7 +26,7 @@ public class AllAccountsTest {
         String username = "august";
         User user = User.Admin;
         Assert.assertTrue(a.doesUserExist(user,username));
-    }
+    }*/
 
     @Test
     public void testDoesUserExist4(){
@@ -91,7 +91,7 @@ public class AllAccountsTest {
         Assert.assertFalse(a.doesUserExist(user,username));
     }
 
-    @Test
+    /*@Test
     public void testDoesPassMatch1(){
         User user = User.Customer;
         String username = "a";
@@ -113,7 +113,7 @@ public class AllAccountsTest {
         String username = "august";
         String password = "password";
         Assert.assertTrue(a.doesPassMatch(user,username,password));
-    }
+    }*/
 
     @Test
     public void testDoesPassMatch4(){
