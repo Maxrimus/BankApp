@@ -15,7 +15,7 @@ public class AdminCancellingPower {
     //There is a method defined in AllBankAccounts to deleteBankAccount(String username)
     public static void Cancel(){
         System.out.println("Which account would you like to cancel?");
-        System.out.println(AllBankAccounts.getInstance().toString());
+        System.out.println(Main.allBankAccounts.toString());
         String userInput = Main.getUserInput();
         userInput = ValidFormat.loopUntilValid(userInput,"VALUE",1,AllBankAccounts.getInstance().getNumberOfAccounts());
         AllBankAccounts.getInstance().getBankaccs().remove(Integer.parseInt(userInput) - 1);
