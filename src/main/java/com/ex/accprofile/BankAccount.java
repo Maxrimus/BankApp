@@ -60,6 +60,11 @@ public class BankAccount implements Serializable{
         accsBalance.put(accountType, current + amt);
     }
 
+    public void withdrawMoney(AccountTypes accountType, Double amt){
+        Double current = accsBalance.get(accountType);
+        accsBalance.put(accountType, current - amt);
+    }
+
     public boolean doesAccountTypeExist(AccountTypes accountType){
         return myAccounts.contains(accountType);
     }

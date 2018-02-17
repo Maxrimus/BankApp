@@ -3,6 +3,7 @@ package com.ex.bankpowers;
 import com.ex.Main;
 import com.ex.User;
 import com.ex.ValidFormat;
+import com.ex.accprofile.AllBankAccounts;
 import com.ex.accprofile.BankAccount;
 
 import java.text.NumberFormat;
@@ -24,34 +25,82 @@ public class AccountActions {
         BankAccount ba = Main.allBankAccounts.extractAccount(username);
         ArrayList<BankAccount.AccountTypes> acc= ba.getAccountTypeList();
 
-        System.out.println("Your Accounts");
+        System.out.println("Which account balance would you like to view?");
         for (int i = 0; i < acc.size(); i++){
             System.out.println("\t"+i+1+"-"+acc.get(i));
         }
 
         String userInput = Main.getUserInput();
         userInput = ValidFormat.loopUntilValid(userInput,"VALUE", 1,acc.size());
+        BankAccount.AccountTypes type = acc.get(Integer.parseInt(userInput)-1);
+        Double balance = ba.getAccountBalance(type);
+        System.out.println("Your account balance");
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
+        System.out.println(formatter.format(balance));
 
-        for(int i = 1; i <= acc.size(); i++){
-            if(userInput.equals(Integer.toString(i))){
-                Double balance = ba.getAccountBalance(acc.get(i-1));
-                System.out.println("Your account balance");
-                NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
-                System.out.println(formatter.format(balance));
+//        for(int i = 1; i <= acc.size(); i++){
+//            if(userInput.equals(Integer.toString(i))){
+//                Double balance = ba.getAccountBalance(acc.get(i-1));
+//                System.out.println("Your account balance");
+//                NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
+//                System.out.println(formatter.format(balance));
+//                break;
+//            }
+//        }
+
+    }
+
+    public static void withdraw(String username){
+        BankAccount ba = Main.allBankAccounts.extractAccount(username);
+        ArrayList<BankAccount.AccountTypes> acc= ba.getAccountTypeList();
+
+        System.out.println("Which account would you like to withdraw from?");
+        for (int i = 0; i < acc.size(); i++){
+            System.out.println("\t"+(i+1)+"- "+acc.get(i));
+        }
+
+        String userInput = Main.getUserInput();
+        userInput = ValidFormat.loopUntilValid(userInput,"VALUE", 1,acc.size());
+        BankAccount.AccountTypes type = acc.get(Integer.parseInt(userInput)-1);
+
+        Double currentBalance = ba.getAccountBalance(type);
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
+        System.out.println("Your current balance: " + formatter.format(currentBalance));
+
+        if (currentBalance == 0.0){
+            System.out.println("You don't have enough to withdraw from");
+            System.out.println("Do you want to do anything else?");
+            System.out.println("\t1- Yes");
+            System.out.println("\t2- No");
+            userInput = Main.getUserInput();
+            userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 2);
+
+            if (userInput.equals("1")) {
+                nextActions(User.Customer, username);
+            }
+            else if (userInput.equals("2")){
+                System.out.println("Exiting...");
             }
         }
-        System.out.println("Do you want to do anything else?");
-        System.out.println("\t1- Yes");
-        System.out.println("\t2- No");
+        System.out.println("How much would you like to withdraw?");
         userInput = Main.getUserInput();
-        userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 2);
 
-        if (userInput.equals("1")) {
-            nextActions(User.Customer, username);
+        if (ValidFormat.isCurrency(userInput)){
+            if (Double.parseDouble(userInput) <= currentBalance && Double.parseDouble(userInput) > 0){
+                System.out.println("Processing...");
+                ba.withdrawMoney(type, Double.parseDouble(userInput));
+                System.out.println("Your remaining balance in the account");
+            }
+            else{
+                System.out.println("The amount specified is not allowed");
+                System.out.println("Leaving transaction...");
+            }
         }
-        else if (userInput.equals("2")){
-            System.out.println("Exiting...");
+        else{
+            System.out.println("Your input is invalid");
+            System.out.println("Leaving transaction");
         }
+
     }
 
 
@@ -75,11 +124,12 @@ public class AccountActions {
     private static void CustomerActions(String userInput, String username){
         switch(userInput){
             case "1":   //View account balance
-                //BankAccount bankAccount = AllBankProfiles.getInstance().extractProfile(username).getAccounts().get(0);
-                AccountActions.viewAccountBalance(username);
-                //System.out.println("$" + bankAccount.getBalance());
+                viewAccountBalance(username);
+                doSomethingElse(User.Customer, username);
                 break;
             case "2":
+                withdraw(username);
+                doSomethingElse(User.Customer, username);
                 break;
             case "3":
                 break;
@@ -110,40 +160,15 @@ public class AccountActions {
                 if (userInput.equals("1")){
                     viewAccountBalance(username);
                 }
-                else{
-                    System.out.println("Do you want to do anything else?");
-                    System.out.println("\t1- Yes\n\t2- No");
-                    userInput = Main.getUserInput();
-                    userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 2);
 
-                    if (userInput.equals("1")){
-                        nextActions(User.Employee, username);
-                    }
-                    else{
-                        System.out.println("Exiting...");
-                        //Main.finish();
-                    }
-                }
-
+                doSomethingElse(User.Employee, username);
                 break;
             case "2":
                 break;
             case "3":
                 JudgeApplications j = new JudgeApplications();
                 j.judge();
-
-                System.out.println("Do you want to do anything else?");
-                System.out.println("\t1- Yes\n\t2- No");
-                userInput = Main.getUserInput();
-                userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 2);
-
-                if (userInput.equals("1")){
-                    nextActions(User.Employee, username);
-                }
-                else{
-                    System.out.println("Exiting...");
-                    //Main.finish();
-                }
+                doSomethingElse(User.Employee, username);
                 break;
             case "4":
                 System.out.println("Exiting...");
@@ -170,58 +195,38 @@ public class AccountActions {
                 if (userInput.equals("1")){
                     viewAccountBalance(username);
                 }
-                else{
-                    System.out.println("Do you want to do anything else?");
-                    System.out.println("\t1- Yes\n\t2- No");
-                    userInput = Main.getUserInput();
-                    userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 2);
-
-                    if (userInput.equals("1")){
-                        nextActions(User.Admin, username);
-                    }
-                    else{
-                        System.out.println("Exiting...");
-                        //Main.finish();
-                    }
-                }
+                doSomethingElse(User.Admin,username);
                 break;
             case "2":
                 break;
             case "3":
                 JudgeApplications j = new JudgeApplications();
                 j.judge();
-                System.out.println("Do you want to do anything else?");
-                System.out.println("\t1- Yes\n\t2- No");
-                userInput = Main.getUserInput();
-                userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 2);
-
-                if (userInput.equals("1")){
-                    nextActions(User.Admin, username);
-                }
-                else{
-                    System.out.println("Exiting...");
-                    //Main.finish();
-                }
+                doSomethingElse(User.Admin,username);
                 break;
             case "4":
                 AdminCancellingPower.Cancel();
-                System.out.println("Do you want to do anything else?");
-                System.out.println("\t1- Yes\n\t2- No");
-                userInput = Main.getUserInput();
-                userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 2);
-
-                if (userInput.equals("1")){
-                    nextActions(User.Admin, username);
-                }
-                else{
-                    System.out.println("Exiting...");
-                    //Main.finish();
-                }
+                doSomethingElse(User.Admin,username);
                 break;
             case "5":
                 System.out.println("Exiting...");
                 //Main.finish();
                 break;
+        }
+    }
+
+    private static void doSomethingElse(User user, String username){
+        System.out.println("Do you want to do anything else?");
+        System.out.println("\t1- Yes\n\t2- No");
+        String userInput = Main.getUserInput();
+        userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 2);
+
+        if (userInput.equals("1")){
+            nextActions(user, username);
+        }
+        else{
+            System.out.println("Exiting...");
+            //Main.finish();
         }
     }
 
