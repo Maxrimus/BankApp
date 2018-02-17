@@ -21,7 +21,7 @@ public class AccountActions {
     //extractProfile(String username)
     //All setters and getters necessary to change data should be in BankProfile
 
-    public static void viewAccountBalance(String username){
+    private static void viewAccountBalance(String username){
         BankAccount ba = Main.allBankAccounts.extractAccount(username);
         ArrayList<BankAccount.AccountTypes> acc= ba.getAccountTypeList();
 
@@ -50,7 +50,7 @@ public class AccountActions {
 
     }
 
-    public static void withdraw(String username){
+    private static void withdraw(String username){
         BankAccount ba = Main.allBankAccounts.extractAccount(username);
         ArrayList<BankAccount.AccountTypes> acc= ba.getAccountTypeList();
 
@@ -90,6 +90,7 @@ public class AccountActions {
                 System.out.println("Processing...");
                 ba.withdrawMoney(type, Double.parseDouble(userInput));
                 System.out.println("Your remaining balance in the account");
+                System.out.println(ba.getAccountBalance(type));
             }
             else{
                 System.out.println("The amount specified is not allowed");
@@ -103,8 +104,157 @@ public class AccountActions {
 
     }
 
+    private static void deposit(String username){
+        BankAccount ba = Main.allBankAccounts.extractAccount(username);
+        ArrayList<BankAccount.AccountTypes> acc= ba.getAccountTypeList();
 
-    public static void nextActions(User user, String username){
+        System.out.println("Which account would you like to deposit to?");
+        for (int i = 0; i < acc.size(); i++){
+            System.out.println("\t"+(i+1)+"- "+acc.get(i));
+        }
+
+        String userInput = Main.getUserInput();
+        userInput = ValidFormat.loopUntilValid(userInput,"VALUE", 1,acc.size());
+        BankAccount.AccountTypes type = acc.get(Integer.parseInt(userInput)-1);
+
+        Double currentBalance = ba.getAccountBalance(type);
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
+        System.out.println("Your current balance: " + formatter.format(currentBalance));
+
+        System.out.println("How much would you like to deposit?");
+        userInput = Main.getUserInput();
+
+        if (ValidFormat.isCurrency(userInput)){
+            if (Double.parseDouble(userInput) > 0){
+                System.out.println("Processing...");
+                ba.depositMoney(type, Double.parseDouble(userInput));
+                System.out.println("Your new balance in the account");
+                System.out.println(ba.getAccountBalance(type));
+            }
+            else{
+                System.out.println("The amount specified is not allowed");
+                System.out.println("Leaving transaction...");
+            }
+        }
+        else{
+            System.out.println("Your input is invalid");
+            System.out.println("Leaving transaction");
+        }
+    }
+
+    private static void transfer(String username){
+        BankAccount ba = Main.allBankAccounts.extractAccount(username);
+        ArrayList<BankAccount.AccountTypes> acc= ba.getAccountTypeList();
+
+        System.out.println("Which account would you like to transfer from?");
+        for (int i = 0; i < acc.size(); i++){
+            System.out.println("\t"+(i+1)+"- "+acc.get(i));
+        }
+
+        String userInput = Main.getUserInput();
+        userInput = ValidFormat.loopUntilValid(userInput,"VALUE", 1,acc.size());
+        BankAccount.AccountTypes type = acc.get(Integer.parseInt(userInput)-1);
+        Double currentBalance = ba.getAccountBalance(type);
+
+        System.out.println("Are you transferring to one of your accounts or to another customer?");
+        System.out.println("\t1- Myself");
+        System.out.println("\t2- Another person");
+
+        userInput = Main.getUserInput();
+        userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 2);
+
+        if (userInput.equals("1")){
+            System.out.println("Which account are you transferring to?");
+            int i = 0;
+            while (i < acc.size()) {
+                if (acc.get(i) != type){
+                    System.out.println("\t"+ (i+1) + acc.get(i));
+                }
+                i++;
+            }
+
+            userInput = Main.getUserInput();
+            userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, acc.size());
+            BankAccount.AccountTypes type2 = acc.get(Integer.parseInt(userInput) - 1);
+            Double transfereeBalance = ba.getAccountBalance(type2);
+
+            System.out.println("How much do you want to transfer?");
+            userInput = Main.getUserInput();
+
+            if (ValidFormat.isCurrency(userInput)){
+                if (Double.parseDouble(userInput) > 0 || Double.parseDouble(userInput) <= currentBalance){
+                    System.out.println("Processing...");
+                    ba.withdrawMoney(type, Double.parseDouble(userInput));
+                    System.out.println("Your remaining balance in the account");
+                    System.out.println(ba.getAccountBalance(type));
+                    ba.depositMoney(type2, Double.parseDouble(userInput));
+                    System.out.println("Your new balance in the other account");
+                    System.out.println(ba.getAccountBalance(type2));
+                    System.out.println("Leaving transaction...");
+                }
+                else{
+                    System.out.println("The amount specified is not allowed");
+                    System.out.println("Leaving transaction...");
+                }
+            }
+            else{
+                System.out.println("Your input is invalid");
+                System.out.println("Leaving transaction");
+            }
+        }
+        else if (userInput.equals("2")){
+            System.out.println("Enter the username of the person you're transferring to");
+            userInput = Main.getUserInput();
+            userInput = ValidFormat.loopUntilValid(userInput, "ALPHANUM");
+            userInput = ValidFormat.loopUntilValid(userInput,"SPACE");
+            boolean exist = Main.accounts.doesUserExist(User.Customer, userInput);
+
+            if (exist){
+                BankAccount anotherOne = Main.allBankAccounts.extractAccount(userInput);
+                ArrayList<BankAccount.AccountTypes> theirAccs = anotherOne.getAccountTypeList();
+
+                for (int i = 0; i < theirAccs.size(); i++){
+                    if (theirAccs.get(i) == BankAccount.AccountTypes.CHECKING){
+                        break;
+                    }
+                    else{
+                        System.out.println("They do not have a checking account to transfer to");
+                        System.out.println("Leaving transaction...");
+                        return;
+                    }
+                }
+
+                System.out.println("How much do you want to transfer?");
+                userInput = Main.getUserInput();
+
+                if (ValidFormat.isCurrency(userInput)){
+                    if (Double.parseDouble(userInput) > 0 || Double.parseDouble(userInput) <= currentBalance){
+                        System.out.println("Processing...");
+                        ba.withdrawMoney(type, Double.parseDouble(userInput));
+                        System.out.println("Your remaining balance in the account");
+                        System.out.println(ba.getAccountBalance(type));
+                        anotherOne.depositMoney(BankAccount.AccountTypes.CHECKING, Double.parseDouble(userInput));
+                        System.out.println("Successfully transferred");
+                        System.out.println("Leaving transaction....");
+                    }
+                    else{
+                        System.out.println("The amount specified is not allowed");
+                        System.out.println("Leaving transaction...");
+                    }
+                }
+                else{
+                    System.out.println("Your input is invalid");
+                    System.out.println("Leaving transaction");
+                }
+            }
+            else{
+                System.out.println("No one by that username exists");
+                System.out.println("Leaving transaction....");
+            }
+        }
+    }
+
+    public static void nextActions(User user, String username) {
         printUserMenu(user);
         String userInput = Main.getUserInput();
 
@@ -114,10 +264,10 @@ public class AccountActions {
             CustomerActions(userInput, username);
         } else if (user == User.Employee) {
             userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 4);
-            EmployeeActions(userInput,username);
+            EmployeeActions(userInput, username);
         } else if (user == User.Admin) {
             userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 5);
-            AdminActions(userInput,username);
+            AdminActions(userInput, username);
         }
     }
 
@@ -127,13 +277,17 @@ public class AccountActions {
                 viewAccountBalance(username);
                 doSomethingElse(User.Customer, username);
                 break;
-            case "2":
+            case "2":   //Withdraw
                 withdraw(username);
                 doSomethingElse(User.Customer, username);
                 break;
-            case "3":
+            case "3":   //Deposit
+                deposit(username);
+                doSomethingElse(User.Customer, username);
                 break;
-            case "4":
+            case "4":   //Transfer
+                transfer(username);
+                doSomethingElse(User.Customer, username);
                 break;
             case "5":
                 System.out.println("Exiting...");
