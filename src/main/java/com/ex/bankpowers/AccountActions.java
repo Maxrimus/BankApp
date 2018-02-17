@@ -55,8 +55,6 @@ public class AccountActions {
     }
 
 
-
-
     public static void nextActions(User user, String username){
         printUserMenu(user);
         String userInput = Main.getUserInput();
@@ -179,7 +177,7 @@ public class AccountActions {
                     userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 2);
 
                     if (userInput.equals("1")){
-                        nextActions(User.Employee, username);
+                        nextActions(User.Admin, username);
                     }
                     else{
                         System.out.println("Exiting...");
@@ -198,7 +196,7 @@ public class AccountActions {
                 userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 2);
 
                 if (userInput.equals("1")){
-                    nextActions(User.Employee, username);
+                    nextActions(User.Admin, username);
                 }
                 else{
                     System.out.println("Exiting...");
@@ -207,6 +205,18 @@ public class AccountActions {
                 break;
             case "4":
                 AdminCancellingPower.Cancel();
+                System.out.println("Do you want to do anything else?");
+                System.out.println("\t1- Yes\n\t2- No");
+                userInput = Main.getUserInput();
+                userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, 2);
+
+                if (userInput.equals("1")){
+                    nextActions(User.Admin, username);
+                }
+                else{
+                    System.out.println("Exiting...");
+                    //Main.finish();
+                }
                 break;
             case "5":
                 System.out.println("Exiting...");

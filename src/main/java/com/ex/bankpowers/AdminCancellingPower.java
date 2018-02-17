@@ -14,10 +14,17 @@ public class AdminCancellingPower {
     //There is a method defined in AllBankProfiles to deleteProfile(String username)
     //There is a method defined in AllBankAccounts to deleteBankAccount(String username)
     public static void Cancel(){
-        System.out.println("Which account would you like to cancel?");
         System.out.println(Main.allBankAccounts.toString());
+        System.out.println("Enter the username of the account you would like to cancel");
         String userInput = Main.getUserInput();
-        userInput = ValidFormat.loopUntilValid(userInput,"VALUE",1,AllBankAccounts.getInstance().getNumberOfAccounts());
-        AllBankAccounts.getInstance().getBankaccs().remove(Integer.parseInt(userInput) - 1);
+        userInput = ValidFormat.loopUntilValid(userInput, "ALPHANUM");
+        userInput = ValidFormat.loopUntilValid(userInput,"SPACE");
+
+        Main.allBankAccounts.deleteBankAccount(userInput);
+        Main.allBankProfiles.deleteProfile(userInput);
+
+        //userInput = ValidFormat.loopUntilValid(userInput,"VALUE",1,AllBankAccounts.getInstance().getNumberOfAccounts());
+        //AllBankAccounts.getInstance().getBankaccs().remove(Integer.parseInt(userInput) - 1);
+
     }
 }
