@@ -90,6 +90,13 @@ public class AllAccounts implements Serializable{
         return false;
     }
 
+    public boolean doesAccountExist(String username) {
+        if (customerPass.containsKey(username)){
+            return true;
+        }
+        return false;
+    }
+
     public boolean doesPassMatch(User user, String username, String password){
         switch (user) {
             case Customer: {
@@ -118,15 +125,12 @@ public class AllAccounts implements Serializable{
         switch (user) {
             case Customer:
                 customerUsernames.add(username);
-                customerPass.put(username,"");
                 break;
             case Employee:
                 employeeUsernames.add(username);
-                employeePass.put(username,"");
                 break;
             case Admin:
                 adminUsernames.add(username);
-                adminPass.put(username,"");
                 break;
         }
     }
