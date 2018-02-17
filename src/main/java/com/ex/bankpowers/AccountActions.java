@@ -3,7 +3,6 @@ package com.ex.bankpowers;
 import com.ex.Main;
 import com.ex.User;
 import com.ex.ValidFormat;
-import com.ex.accprofile.AllBankAccounts;
 import com.ex.accprofile.BankAccount;
 
 import java.text.NumberFormat;
@@ -176,7 +175,6 @@ public class AccountActions {
             userInput = Main.getUserInput();
             userInput = ValidFormat.loopUntilValid(userInput, "VALUE", 1, acc.size());
             BankAccount.AccountTypes type2 = acc.get(Integer.parseInt(userInput) - 1);
-            Double transfereeBalance = ba.getAccountBalance(type2);
 
             System.out.println("How much do you want to transfer?");
             userInput = Main.getUserInput();
@@ -213,15 +211,18 @@ public class AccountActions {
                 BankAccount anotherOne = Main.allBankAccounts.extractAccount(userInput);
                 ArrayList<BankAccount.AccountTypes> theirAccs = anotherOne.getAccountTypeList();
 
-                for (int i = 0; i < theirAccs.size(); i++){
-                    if (theirAccs.get(i) == BankAccount.AccountTypes.CHECKING){
+                boolean hasChecking = false;
+                for (BankAccount.AccountTypes theirAcc : theirAccs) {
+                    if (theirAcc == BankAccount.AccountTypes.CHECKING) {
+                        hasChecking = true;
                         break;
                     }
-                    else{
-                        System.out.println("They do not have a checking account to transfer to");
-                        System.out.println("Leaving transaction...");
-                        return;
-                    }
+                }
+
+                if (!hasChecking){
+                    System.out.println("They do not have a checking account to transfer to");
+                    System.out.println("Leaving transaction...");
+                    return;
                 }
 
                 System.out.println("How much do you want to transfer?");
@@ -323,7 +324,7 @@ public class AccountActions {
                 userInput = Main.getUserInput();
                 userInput = ValidFormat.loopUntilValid(userInput, "ALPHANUM");
                 userInput = ValidFormat.loopUntilValid(userInput,"SPACE");
-                System.out.println(Main.allBankProfiles.extractProfile(username));
+                System.out.println(Main.allBankProfiles.extractProfile(userInput));
 
                 doSomethingElse(User.Employee, username);
                 break;
@@ -365,7 +366,7 @@ public class AccountActions {
                 userInput = Main.getUserInput();
                 userInput = ValidFormat.loopUntilValid(userInput, "ALPHANUM");
                 userInput = ValidFormat.loopUntilValid(userInput,"SPACE");
-                System.out.println(Main.allBankProfiles.extractProfile(username));
+                System.out.println(Main.allBankProfiles.extractProfile(userInput));
 
                 doSomethingElse(User.Admin, username);
                 break;
