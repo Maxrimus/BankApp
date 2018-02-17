@@ -164,6 +164,14 @@ public class AccountActions {
                 doSomethingElse(User.Employee, username);
                 break;
             case "2":
+                System.out.println(Main.allBankProfiles);
+                System.out.println("Enter the username of the profile you would like to see");
+                userInput = Main.getUserInput();
+                userInput = ValidFormat.loopUntilValid(userInput, "ALPHANUM");
+                userInput = ValidFormat.loopUntilValid(userInput,"SPACE");
+                System.out.println(Main.allBankProfiles.extractProfile(username));
+
+                doSomethingElse(User.Employee, username);
                 break;
             case "3":
                 JudgeApplications j = new JudgeApplications();
@@ -198,6 +206,14 @@ public class AccountActions {
                 doSomethingElse(User.Admin,username);
                 break;
             case "2":
+                System.out.println(Main.allBankProfiles);
+                System.out.println("Enter the username of the profile you would like to see");
+                userInput = Main.getUserInput();
+                userInput = ValidFormat.loopUntilValid(userInput, "ALPHANUM");
+                userInput = ValidFormat.loopUntilValid(userInput,"SPACE");
+                System.out.println(Main.allBankProfiles.extractProfile(username));
+
+                doSomethingElse(User.Admin, username);
                 break;
             case "3":
                 JudgeApplications j = new JudgeApplications();
