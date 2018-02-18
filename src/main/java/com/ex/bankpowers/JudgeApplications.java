@@ -21,11 +21,15 @@ public class JudgeApplications {
     public void judge(){
         //Must call ReadObjectData.loadApplications() in order to pull up open applications
         AllApplications allApps = Main.allApplications;
+        AllBankAccounts bankAccounts = Main.allBankAccounts;
+        AllBankProfiles bankProfiles = Main.allBankProfiles;
+
         int appNumber = 0;
         if(allApps.getAmount() <= 0) {
             System.out.println("No Applications");
             return;
         }
+
         System.out.println("Which Application would you like to judge?");
         System.out.println(allApps.getAppNames());
         String userInput = Main.getUserInput();
@@ -47,34 +51,41 @@ public class JudgeApplications {
         //      2 - Savings
         //      3 - Joint
         //
-        if(userInput.equals("Yes") || userInput.equals("yes")){
-            if(application.getAccountType() == BankAccount.AccountTypes.CHECKING.getValue() || application.getAccountType() == BankAccount.AccountTypes.SAVINGS.getValue()){
-                BankProfile newProfile = new BankProfile(application.getUsername(), application.getEmail(), application.getFullname(), application.getSsn(),
-                        application.getEmployment());
-                AllBankProfiles.getInstance().insertProfile(newProfile);
-                //AllBankAccounts.getInstance().insertAccount(newProfile.addAccount(0));
-                AllAccounts.getAccounts().newUsername(User.Customer,application.getUsername());
-                /*WriteObjectData.writeBankAccounts(AllBankAccounts.getInstance());
-                WriteObjectData.writeBankProfiles(AllBankProfiles.getInstance());
-                WriteObjectData.writeLoginInfo(AllAccounts.getAccounts());*/
+        if(userInput.equals("Yes") || userInput.equals("yes")){     //Application gets approved
 
+            //If the account type specified is "CHECKING" or "SAVINGS"
+            if(application.getAccountType() == BankAccount.AccountTypes.CHECKING.getValue() || application.getAccountType() == BankAccount.AccountTypes.SAVINGS.getValue()){
+
+                if (Main.accounts.doesAccountExist(application.getUsername())){
+                    BankAccount ba = bankAccounts.extractAccount(application.getUsername());
+                    ba.addAccountType(ba.intToAccountType(application.getAccountType()));
+                }
+                else {
+                    BankProfile newProfile = new BankProfile(application.getUsername(), application.getEmail(), application.getFullname(), application.getSsn(),
+                            application.getEmployment());
+                    BankAccount newAccount = new BankAccount(application.getUsername(), "1", 0.0, application.getAccountType());
+                    bankProfiles.insertProfile(newProfile);
+                    bankAccounts.insertAccount(newAccount);
+                    Main.accounts.createAccount(application.getUsername(), "");
+                }
             }
-            else{
+            else{       //The account type is "JOINT"
                 BankProfile newProfile = new BankProfile(application.getUsername(), application.getEmail(), application.getFullname(), application.getSsn(),
                         application.getEmployment(), application.getFullname2(), application.getSsn2(), application.getEmployment2());
-                AllBankProfiles.getInstance().insertProfile(newProfile);
-                //AllBankAccounts.getInstance().insertAccount(newProfile.addAccount(0));
-                AllAccounts.getAccounts().newUsername(User.Customer,application.getUsername());
-                /*WriteObjectData.writeBankAccounts(AllBankAccounts.getInstance());
-                WriteObjectData.writeBankProfiles(AllBankProfiles.getInstance());
-                WriteObjectData.writeLoginInfo(AllAccounts.getAccounts());*/
+                BankAccount newAccount = new BankAccount(application.getUsername(), "1", 0, application.getAccountType());
+                bankProfiles.insertProfile(newProfile);
+                bankAccounts.insertAccount(newAccount);
+                Main.accounts.createAccount(application.getUsername(), "");
             }
+
+
             allApps.closeApplication(appNumber);
+            //Main.finish();
             //WriteObjectData.writeBankApplications(allApps);
         }
-        else if(userInput.equals("No")|| userInput.equals("no")){
+        else if(userInput.equals("No")|| userInput.equals("no")){ // Application denied
             allApps.closeApplication(appNumber);
-            AllAccounts.getAccounts().deleteUsername(application.getUsername());
+            Main.accounts.deleteUsername(application.getUsername());
             //WriteObjectData.writeBankApplications(allApps);
         }
         //Afterwards Must insert the newly created BankAccount and BankProfile into respective

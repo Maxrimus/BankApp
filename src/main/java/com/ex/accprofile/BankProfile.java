@@ -63,11 +63,11 @@ public class BankProfile implements Serializable{
 
     public BankProfile(){}
 
-    public BankAccount addAccount(int startingBalance, String accountNumber, String username, int accountType){
-        BankAccount bankAccount = new BankAccount(username,accountNumber,startingBalance,accountType);
-        accounts.add(bankAccount);
-        return bankAccount;
-    }
+//    public BankAccount addAccount(int startingBalance, String accountNumber, String username, int accountType){
+//        BankAccount bankAccount = new BankAccount(username,accountNumber,startingBalance,accountType);
+//        accounts.add(bankAccount);
+//        return bankAccount;
+//    }
 
     @Override
     public String toString() {
@@ -78,7 +78,7 @@ public class BankProfile implements Serializable{
         toReturn += "SSN: " + ssn + "\n";
         toReturn += "Employment: " + employment + "\n";
         toReturn += "Account Numbers: ";
-        for(BankAccount ba:accounts) toReturn += ba.getAccountNumber() + " ";
+        for(BankAccount ba:accounts) toReturn += ba.getNumOfAccounts() + " ";
         return toReturn;
     }
 }

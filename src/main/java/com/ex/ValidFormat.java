@@ -408,5 +408,31 @@ public class ValidFormat {
         return true;
     }
 
+    public static boolean isCurrency(String input){
+        boolean hasDot = false;
+        int countDot = 0;
+        for (int i = 0; i < input.length(); i++){
+            if (input.charAt(i) == '.'){
+                hasDot = true;
+                countDot++;
+            }
 
+            if (!Character.isDigit(input.charAt(i))){
+                return false;
+            }
+        }
+
+        if (countDot > 1){
+            return false;
+        }
+
+        if (hasDot){
+            String[] line = input.split("\\.");
+            if (line[1].length() > 2){
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
