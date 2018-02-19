@@ -49,6 +49,7 @@ public class AccountApplication implements Serializable {
         String userInput = Main.getUserInput();
         userInput = ValidFormat.loopUntilValid(userInput, "ALPHANUM");
         userInput = ValidFormat.loopUntilValid(userInput, "SPACE");
+        userInput = ValidFormat.loopUntilValid(userInput, "LENGTH", 5, 25);
         userInput = ValidFormat.loopUntilValid(userInput, "EXIST");
         username = userInput;
         accounts.newUsername(User.Customer,username);
