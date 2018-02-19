@@ -12,6 +12,10 @@ public class AllApplications implements Serializable {
 
     private ArrayList<AccountApplication> bankapps = new ArrayList<>();
 
+    public ArrayList<AccountApplication> getBankapps() {
+        return bankapps;
+    }
+
     public int getAmount(){
         return bankapps.size();
     }

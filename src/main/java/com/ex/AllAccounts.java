@@ -135,6 +135,19 @@ public class AllAccounts implements Serializable{
         }
     }
 
+    public String getPassword(User user, String username){
+        switch(user){
+            case Customer:
+                return customerPass.get(username);
+            case Employee:
+                return employeePass.get(username);
+            case Admin:
+                return adminPass.get(username);
+            default:
+                return "";
+        }
+    }
+
     public HashMap<String, String> getEmployeePass() {
         return employeePass;
     }

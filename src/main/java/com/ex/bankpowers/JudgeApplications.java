@@ -13,6 +13,11 @@ import com.ex.makingaccount.AllApplications;
 import com.ex.serialize.ReadObjectData;
 import com.ex.serialize.WriteObjectData;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import static com.ex.Main.conn;
+
 public class JudgeApplications {
 
     public JudgeApplications(){
@@ -62,8 +67,8 @@ public class JudgeApplications {
                 }
                 else {
                     BankProfile newProfile = new BankProfile(application.getUsername(), application.getEmail(), application.getFullname(), application.getSsn(),
-                            application.getEmployment());
-                    BankAccount newAccount = new BankAccount(application.getUsername(), "1", 0.0, application.getAccountType());
+                            application.getEmployment(),-1,User.Customer);
+                    BankAccount newAccount = new BankAccount(application.getUsername(), 0.0, application.getAccountType(),-1);
                     bankProfiles.insertProfile(newProfile);
                     bankAccounts.insertAccount(newAccount);
                     Main.accounts.createAccount(application.getUsername(), "");
@@ -71,11 +76,19 @@ public class JudgeApplications {
             }
             else{       //The account type is "JOINT"
                 BankProfile newProfile = new BankProfile(application.getUsername(), application.getEmail(), application.getFullname(), application.getSsn(),
-                        application.getEmployment(), application.getFullname2(), application.getSsn2(), application.getEmployment2());
-                BankAccount newAccount = new BankAccount(application.getUsername(), "1", 0, application.getAccountType());
+                        application.getEmployment(), application.getFullname2(), application.getSsn2(), application.getEmployment2(),-1,User.Customer);
+                BankAccount newAccount = new BankAccount(application.getUsername(),  0, application.getAccountType(),-1);
                 bankProfiles.insertProfile(newProfile);
                 bankAccounts.insertAccount(newAccount);
                 Main.accounts.createAccount(application.getUsername(), "");
+            }
+
+            try {
+                PreparedStatement statement = conn.prepareStatement("DELETE FROM applications WHERE username = ?");
+                statement.setString(1,application.getUsername());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
 
 
@@ -86,6 +99,14 @@ public class JudgeApplications {
         else if(userInput.equals("No")|| userInput.equals("no")){ // Application denied
             allApps.closeApplication(appNumber);
             Main.accounts.deleteUsername(application.getUsername());
+
+            try {
+                PreparedStatement statement = conn.prepareStatement("DELETE FROM applications WHERE username = ?");
+                statement.setString(1,application.getUsername());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             //WriteObjectData.writeBankApplications(allApps);
         }
         //Afterwards Must insert the newly created BankAccount and BankProfile into respective

@@ -8,6 +8,8 @@ import com.ex.bankpowers.AccountActions;
 import com.ex.bankpowers.AdminCancellingPower;
 import com.ex.bankpowers.JudgeApplications;
 
+import java.sql.SQLException;
+
 import static com.ex.Main.accounts;
 import static com.ex.Main.start;
 
@@ -43,7 +45,11 @@ public class Login {
                 System.out.println("You've exceeded login attempts");
                 System.out.println("Please try again later\n\n\n");
                 //Start new instance of program and end old instance
-                start();
+                try {
+                    start();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 return false;
             }
 

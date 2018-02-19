@@ -40,10 +40,10 @@ public class Main {
             ReadObjectData.loadApplications();
             ReadObjectData.loadBankData();
             ReadObjectData.loadProfileData();
-            accounts.PrintLogins();
-            System.out.println(allApplications.toString());
-            System.out.println(allBankAccounts.toString());
-            System.out.println(allBankProfiles.toString());
+//            accounts.PrintLogins();
+//            System.out.println(allApplications.toString());
+//            System.out.println(allBankAccounts.toString());
+//            System.out.println(allBankProfiles.toString());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,7 +55,11 @@ public class Main {
     public static void main(String[] args) {
         //Calling application to start
         Main m = new Main();
-        start();
+        try {
+            start();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void SetupDatabase() throws SQLException{
@@ -90,7 +94,7 @@ public class Main {
         conn = DriverManager.getConnection(serverURL,props);
     }
 
-    public static void start(){
+    public static void start() throws SQLException {
         //Starting console action
         System.out.println("||| R3VATUR3 BANKING |||\n");
         printMainMenu();
@@ -161,9 +165,13 @@ public class Main {
     }
 
     public static void finish(){
-        WriteObjectData.writeLoginInfo(accounts);
-        WriteObjectData.writeBankAccounts(AllBankAccounts.getInstance());
-        WriteObjectData.writeBankProfiles(AllBankProfiles.getInstance());
+        try {
+            //WriteObjectData.writeLoginInfo(accounts);
+            WriteObjectData.writeBankProfiles(AllBankProfiles.getInstance());
+            WriteObjectData.writeBankAccounts(AllBankAccounts.getInstance());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void printMainMenu(){

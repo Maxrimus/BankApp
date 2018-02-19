@@ -19,20 +19,26 @@ public class AccountApplication implements Serializable {
     private Integer accountType;
     private String employment;
     private String employment2;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
 
     public AccountApplication() {
     }
 
-    public AccountApplication(String username, String email, Integer accountType, String fullname, String ssn, String employment) {
+    public AccountApplication(String username, String email, Integer accountType, String fullname, String ssn, String employment, int id) {
         this.username = username;
         this.email = email;
         this.accountType = accountType;
         this.fullname = fullname;
         this.ssn = ssn;
         this.employment = employment;
+        this.id = id;
     }
 
-    public AccountApplication(String username, String email, Integer accountType, String fullname, String ssn, String employment, String fullname2, String ssn2, String employment2) {
+    public AccountApplication(String username, String email, Integer accountType, String fullname, String ssn, String employment, String fullname2, String ssn2, String employment2, int id) {
         this.username = username;
         this.email = email;
         this.accountType = accountType;
@@ -42,6 +48,7 @@ public class AccountApplication implements Serializable {
         this.fullname2 = fullname2;
         this.ssn2 = ssn2;
         this.employment2 = employment2;
+        this.id = id;
     }
 
     public void apply() {

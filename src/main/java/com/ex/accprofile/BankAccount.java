@@ -3,12 +3,18 @@ package com.ex.accprofile;
 import com.ex.makingaccount.AccountApplication;
 
 import java.io.Serializable;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
+
+import static com.ex.Main.conn;
 
 public class BankAccount implements Serializable{
     private String username;
     private String accountNumber;
     private int numOfAccounts = 1;
+    private int id;
     //private AccountTypes accountType;
     //private Double balance;
     Random rand;
@@ -99,9 +105,38 @@ public class BankAccount implements Serializable{
 
     public BankAccount(){}
 
-    public BankAccount(String username, String accountNumber, double startingBalance, Integer accountType){
-            this.username = username;
+    public int getId() {
+        return id;
+    }
+
+    public BankAccount(String username, double startingBalance, Integer accountType, int id){
+        this.username = username;
+        rand = new Random();
+        try {
+            accountNumber = generateAccountNumber();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        this.id = id;
+        if(accountType == 1) {
+            accsBalance.put(AccountTypes.CHECKING, startingBalance);
+            myAccounts.add(AccountTypes.CHECKING);
+        }
+        if(accountType == 2) {
+            accsBalance.put(AccountTypes.SAVINGS, startingBalance);
+            myAccounts.add(AccountTypes.SAVINGS);
+        }
+        if(accountType == 3) {
+            accsBalance.put(AccountTypes.JOINT, startingBalance);
+            myAccounts.add(AccountTypes.JOINT);
+        }
+        numOfAccounts++;
+    }
+
+    public BankAccount(String username, String accountNumber, double startingBalance, Integer accountType, int id){
+        this.username = username;
         this.accountNumber = accountNumber;
+        this.id = id;
         if(accountType == 1) {
             accsBalance.put(AccountTypes.CHECKING, startingBalance);
             myAccounts.add(AccountTypes.CHECKING);
@@ -115,6 +150,19 @@ public class BankAccount implements Serializable{
             myAccounts.add(AccountTypes.JOINT);
         }
         rand = new Random();
+    }
+
+    private String generateAccountNumber() throws SQLException {
+        boolean found = false;
+        int possibleNumber = 0;
+        while(!found){
+            possibleNumber = rand.nextInt(900000000)+100000000;
+            PreparedStatement statement = conn.prepareStatement("SELECT accountnumber FROM accounts WHERE accountnumber = ?");
+            statement.setInt(1,possibleNumber);
+            ResultSet resultSet = statement.executeQuery();
+            if(!resultSet.next()) found = true;
+        }
+        return "" + possibleNumber;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.ex.accprofile;
 
+import com.ex.User;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,8 @@ public class BankProfile implements Serializable{
     private String ssn2;
     private String employment;
     private String employment2;
+    private int id;
+    private User user;
     private List<BankAccount> accounts;
 
     public List<BankAccount> getAccounts() {
@@ -34,7 +38,11 @@ public class BankProfile implements Serializable{
 
     public void setEmail(String email) { this.email = email; }
 
-    public BankProfile(String username, String email, String fullname, String ssn, String employment){
+    public int getId() {
+        return id;
+    }
+
+    public BankProfile(String username, String email, String fullname, String ssn, String employment, int id, User user){
         this.username = username;
         this.fullname = fullname;
         this.email = email;
@@ -43,12 +51,19 @@ public class BankProfile implements Serializable{
         this.fullname2 = null;
         this.ssn2 = null;
         this.employment2 = null;
+        this.id = id;
+        this.user = user;
         accounts = new ArrayList<>();
         numberOfAccounts = 0;
+
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public BankProfile(String username, String email, String fullname, String ssn, String employment,
-                       String fullname2, String ssn2, String employment2){
+                       String fullname2, String ssn2, String employment2, int id, User user){
         this.username = username;
         this.email = email;
         this.fullname = fullname;
@@ -57,17 +72,14 @@ public class BankProfile implements Serializable{
         this.fullname2 = fullname2;
         this.ssn2 = ssn2;
         this.employment2 = employment2;
+        this.id = id;
+        this.user = user;
+
         accounts = new ArrayList<>();
         numberOfAccounts = 0;
     }
 
     public BankProfile(){}
-
-//    public BankAccount addAccount(int startingBalance, String accountNumber, String username, int accountType){
-//        BankAccount bankAccount = new BankAccount(username,accountNumber,startingBalance,accountType);
-//        accounts.add(bankAccount);
-//        return bankAccount;
-//    }
 
     @Override
     public String toString() {
