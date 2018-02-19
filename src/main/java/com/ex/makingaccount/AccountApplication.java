@@ -112,6 +112,11 @@ public class AccountApplication implements Serializable {
                 userInput = ValidFormat.loopUntilValid(userInput, "SSN");
                 ssn2 = userInput;
 
+                System.out.println("What is your current job title?");
+                userInput = Main.getUserInput();
+                userInput = ValidFormat.loopUntilValid(userInput, "LETTERS");
+                employment = userInput;
+
                 System.out.println("What is your spouse's current job title?");
                 userInput = Main.getUserInput();
                 userInput = ValidFormat.loopUntilValid(userInput, "LETTERS");
