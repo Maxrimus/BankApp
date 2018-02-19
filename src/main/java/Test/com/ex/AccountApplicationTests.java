@@ -1,6 +1,7 @@
 package Test.com.ex;
 
 import com.ex.makingaccount.AccountApplication;
+import com.ex.makingaccount.AllApplications;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,6 +10,7 @@ public class AccountApplicationTests {
     AccountApplication app1 = new AccountApplication("myuser", "user@gmail.com", 1, "Lucas Bourn", "001-10-1010", "Assassin");
     AccountApplication app2 = new AccountApplication("myuser2", "user2@gmail.com", 3, "Ned Flanders", "100-10-1000", "Pastor", "" +
             "Marge Simpson", "009-09-9000", "Lawyer");
+    AllApplications apps = AllApplications.getApplications();
 
     @Test
     public void testGettersAndSetters(){
@@ -34,4 +36,20 @@ public class AccountApplicationTests {
         app1.setEmployment("Trainer");
         Assert.assertTrue(app1.getEmployment().equals("Trainer"));
     }
+
+    @Test
+    public void testAllApplications(){
+        apps.enterNewApplication(app1);
+        apps.enterNewApplication(app2);
+        Assert.assertTrue(apps.getAmount() == 2);
+        Assert.assertTrue(apps.extractApplication(0) == app1);
+        Assert.assertFalse(apps.extractApplication(1) == app1);
+        Assert.assertTrue(apps.extractApplication(1) == app2);
+        apps.closeApplication(1);
+        Assert.assertTrue(apps.getAmount() == 1);
+        apps.closeApplication(0);
+        Assert.assertTrue(apps.getAmount() == 0);
+    }
+
+
 }
