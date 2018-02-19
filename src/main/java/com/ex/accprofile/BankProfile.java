@@ -25,12 +25,23 @@ public class BankProfile implements Serializable{
 
     public String getUsername() { return username; }
     public String getFullname() { return fullname; }
-    public String getFullname2() { return fullname2; }
+    public String getFullname2() {
+        if (fullname2 == null){ return "";}
+        return fullname2;
+    }
     public String getEmail() { return email; }
     public String getSsn() { return ssn; }
-    public String getSsn2() { return ssn2; }
+    public String getSsn2() {
+        if (ssn2 == null){ return "";}
+        return ssn2;
+    }
     public String getEmployment() { return employment; }
-    public String getEmployment2() { return employment2; }
+    public String getEmployment2() {
+        if (employment2 == null){
+            return "";
+        }
+        return employment2;
+    }
 
     public void setEmail(String email) { this.email = email; }
 
