@@ -7,6 +7,17 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 
 public class ValidFormatTest {
+    // validation testing types on this File
+    // - is between length
+    // - is an int between min and max
+    // - is all letters
+    // - is alphanumeric
+    // - has no spaces
+    // - checking name structure
+    // - checking password structure
+    // - is an SSN
+    // - is an email
+
 
     @Test
     public void testIsBetweenLengths1(){
@@ -60,6 +71,14 @@ public class ValidFormatTest {
         int min = 1;
         int max = 8;
         Assert.assertEquals(expected,ValidFormat.isBetweenLength(input,min,max));
+    }
+
+    @Test
+    public void testIsBetweenLengths7(){
+        String input = null;
+        int min = 0;
+        int max = 0;
+        Assert.assertFalse(ValidFormat.isBetweenLength(input,min,max));
     }
 
     @Test
@@ -161,6 +180,11 @@ public class ValidFormatTest {
     }
 
     @Test
+    public void testIsAllLetters6(){
+        Assert.assertFalse(ValidFormat.isAllLetters(null));
+    }
+
+    @Test
     public void testIsAlphaNum1(){
         boolean expected = true;
         String input = "test";
@@ -196,6 +220,11 @@ public class ValidFormatTest {
     }
 
     @Test
+    public void testIsAlphaNum6(){
+        Assert.assertFalse(ValidFormat.isAlphanum(null));
+    }
+
+    @Test
     public void testHasNoSpaces1(){
         boolean expected = true;
         String input = "test";
@@ -221,6 +250,11 @@ public class ValidFormatTest {
         boolean expected = false;
         String input = "";
         Assert.assertEquals(expected,ValidFormat.hasNoSpaces(input));
+    }
+
+    @Test
+    public void testHasNoSpaces5(){
+        Assert.assertFalse(ValidFormat.hasNoSpaces(null));
     }
 
     @Test
@@ -251,6 +285,11 @@ public class ValidFormatTest {
     public void testCheckNameStructure5(){
         String input = "";
         Assert.assertFalse(ValidFormat.checkNameStructure(input));
+    }
+
+    @Test
+    public void testCheckNameStructure6(){
+        Assert.assertFalse(ValidFormat.checkNameStructure(null));
     }
 
     @Test
@@ -296,6 +335,11 @@ public class ValidFormatTest {
     }
 
     @Test
+    public void testCheckPassWordStructure8(){
+        Assert.assertFalse(ValidFormat.checkPasswordStructure(null));
+    }
+
+    @Test
     public void testIsAnSSN1(){
         String input = "123-45-6789";
         Assert.assertTrue(ValidFormat.isAnSSN(input));
@@ -332,6 +376,21 @@ public class ValidFormatTest {
     }
 
     @Test
+    public void testIsAnSSN7(){
+        Assert.assertTrue(ValidFormat.isAnSSN("000-00-0000"));
+    }
+
+    @Test
+    public void testIsAnSSN8(){
+        Assert.assertTrue(ValidFormat.isAnSSN("999-99-9999"));
+    }
+
+    @Test
+    public void testIsAnSSN9(){
+        Assert.assertFalse(ValidFormat.isAnSSN(null));
+    }
+
+    @Test
     public void testIsAnEmail1(){
         String input = "email@email.com";
         Assert.assertTrue(ValidFormat.isAnEmail(input));
@@ -365,5 +424,45 @@ public class ValidFormatTest {
     public void testIsAnEmail6(){
         String input = "";
         Assert.assertFalse(ValidFormat.isAnEmail(input));
+    }
+
+    @Test
+    public void testIsAnEmail7(){
+        Assert.assertFalse(ValidFormat.isAnEmail(null));
+    }
+
+    @Test
+    public void testIsCurrency1(){
+        Assert.assertFalse(ValidFormat.isCurrency("0.0."));
+    }
+
+    @Test
+    public void testIsCurrency2(){
+        Assert.assertFalse(ValidFormat.isCurrency("."));
+    }
+
+    @Test
+    public void testIsCurrency3(){
+        Assert.assertFalse(ValidFormat.isCurrency(".0."));
+    }
+
+    @Test
+    public void testIsCurrency4(){
+        Assert.assertTrue(ValidFormat.isCurrency("0.0"));
+    }
+
+    @Test
+    public void testIsCurrency5(){
+        Assert.assertFalse(ValidFormat.isCurrency("12."));
+    }
+
+    @Test
+    public void testIsCurrency6(){
+        Assert.assertTrue(ValidFormat.isCurrency(".01"));
+    }
+
+    @Test
+    public void testIsCurrency7() {
+        Assert.assertFalse(ValidFormat.isCurrency(""));
     }
 }
