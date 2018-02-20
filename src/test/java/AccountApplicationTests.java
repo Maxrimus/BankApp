@@ -7,9 +7,10 @@ import org.junit.Test;
 
 public class AccountApplicationTests {
 
-    AccountApplication app1 = new AccountApplication("myuser", "user@gmail.com", 1, "Lucas Bourn", "001-10-1010", "Assassin");
+    //String username, String email, Integer accountType, String fullname, String ssn, String employment, int id
+    AccountApplication app1 = new AccountApplication("myuser", "user@gmail.com", 1, "Lucas Bourn", "001-10-1010", "Assassin", 1);
     AccountApplication app2 = new AccountApplication("myuser2", "user2@gmail.com", 3, "Ned Flanders", "100-10-1000", "Pastor", "" +
-            "Marge Simpson", "009-09-9000", "Lawyer");
+            "Marge Simpson", "009-09-9000", "Lawyer", 1);
     AllApplications apps = AllApplications.getApplications();
 
     @Test

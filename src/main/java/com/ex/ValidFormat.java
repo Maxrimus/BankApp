@@ -411,6 +411,11 @@ public class ValidFormat {
     public static boolean isCurrency(String input){
         boolean hasDot = false;
         int countDot = 0;
+
+        if (input.length() < 1){
+            return false;
+        }
+
         for (int i = 0; i < input.length(); i++){
             if (input.charAt(i) == '.'){
                 hasDot = true;
