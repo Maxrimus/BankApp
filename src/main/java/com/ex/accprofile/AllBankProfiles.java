@@ -2,6 +2,7 @@ package com.ex.accprofile;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 //This class is a singleton
 public class AllBankProfiles implements Serializable{
@@ -26,13 +27,18 @@ public class AllBankProfiles implements Serializable{
         return allBankProfiles;
     }
 
-    public BankProfile extractProfile(String username){
+    public List<BankProfile> extractProfile(String username){
+        List<BankProfile> profiles = new ArrayList<>();
         for(int i = 0; i < bankpros.size(); i++){
             if (bankpros.get(i).getUsername().equals(username)){
-                return bankpros.get(i);
+                profiles.add(bankpros.get(i));
             }
         }
-        return new BankProfile();
+        if(profiles.size() > 0) return profiles;
+        else{
+            profiles.add(new BankProfile());
+            return profiles;
+        }
     }
 
     public void deleteProfile(String username){

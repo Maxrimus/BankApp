@@ -149,8 +149,8 @@ public class Main {
 
             if (newUser.register()){
                 AllBankProfiles bankProfiles = AllBankProfiles.getInstance();
-                BankProfile myprof = bankProfiles.extractProfile(newUser.getUsername());
-                myprof.setEmail(newUser.getEmail());
+//                BankProfile myprof = bankProfiles.extractProfile(newUser.getUsername());
+//                myprof.setEmail(newUser.getEmail());
                 accounts.createAccount(newUser.getUsername(),newUser.getPassword());
 
                 System.out.println("You're all set!!\nPlease log in now");

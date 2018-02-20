@@ -133,20 +133,25 @@ public class WriteObjectData {
                     statement.setInt(2,at.getValue());
                     statement.setDouble(3,ba.getAccountBalance(at));
                     statement.executeUpdate();
+
+
                     statement = conn.prepareStatement("SELECT id FROM accounts WHERE accountnumber = ?");
                     statement.setInt(1,Integer.parseInt(ba.getAccountNumber()));
                     ResultSet resultSet = statement.executeQuery();
                     int accountId = -1;
                     if(resultSet.next()) accountId = resultSet.getInt("id");
+
                     statement = conn.prepareStatement("SELECT id FROM profiles WHERE username = ?");
                     statement.setString(1,ba.getUsername());
                     resultSet = statement.executeQuery();
                     int profileId = -1;
-                    if(resultSet.next()) profileId = resultSet.getInt("id");
-                    statement = conn.prepareStatement("INSERT INTO accountsprofiles (accountid,profileid) VALUES (?,?)");
-                    statement.setInt(1,accountId);
-                    statement.setInt(2,profileId);
-                    statement.executeUpdate();
+                    while(resultSet.next()) {
+                        profileId = resultSet.getInt("id");
+                        statement = conn.prepareStatement("INSERT INTO accountsprofiles (accountid,profileid) VALUES (?,?)");
+                        statement.setInt(1,accountId);
+                        statement.setInt(2,profileId);
+                        statement.executeUpdate();
+                    }
                 }
             }
             else{
@@ -184,33 +189,91 @@ public class WriteObjectData {
 
         for(BankProfile bp:allBankProfiles.getBankpros()){
             if(bp.getId() == -1){
-                String fullName = bp.getFullname();
-                String[] names = fullName.split(" " );
-                PreparedStatement statement = conn.prepareStatement("INSERT INTO profiles (username,email,first_name,last_name,ssn,employment,accesslevel,password) VALUES (?,?,?,?,?,?,?,?)");
-                statement.setString(1,bp.getUsername());
-                statement.setString(2,bp.getEmail());
-                statement.setString(3,names[0]);
-                statement.setString(4,names[1]);
-                statement.setString(5,bp.getSsn());
-                statement.setString(6,bp.getEmployment());
-                statement.setInt(7,bp.getUser().getI());
-                statement.setString(8,accounts.getPassword(bp.getUser(),bp.getUsername()));
-                statement.executeUpdate();
+                if(bp.getFullname2() == null){
+                    String fullName = bp.getFullname();
+                    String[] names = fullName.split(" " );
+                    PreparedStatement statement = conn.prepareStatement("INSERT INTO profiles (username,email,first_name,last_name,ssn,employment,accesslevel,password) VALUES (?,?,?,?,?,?,?,?)");
+                    statement.setString(1,bp.getUsername());
+                    statement.setString(2,bp.getEmail());
+                    statement.setString(3,names[0]);
+                    statement.setString(4,names[1]);
+                    statement.setString(5,bp.getSsn());
+                    statement.setString(6,bp.getEmployment());
+                    statement.setInt(7,bp.getUser().getI());
+                    statement.setString(8,accounts.getPassword(bp.getUser(),bp.getUsername()));
+                    statement.executeUpdate();
+                }
+                else{
+                    String fullName = bp.getFullname();
+                    String[] names = fullName.split(" " );
+                    PreparedStatement statement = conn.prepareStatement("INSERT INTO profiles (username,email,first_name,last_name,ssn,employment,accesslevel,password) VALUES (?,?,?,?,?,?,?,?)");
+                    statement.setString(1,bp.getUsername());
+                    statement.setString(2,bp.getEmail());
+                    statement.setString(3,names[0]);
+                    statement.setString(4,names[1]);
+                    statement.setString(5,bp.getSsn());
+                    statement.setString(6,bp.getEmployment());
+                    statement.setInt(7,bp.getUser().getI());
+                    statement.setString(8,accounts.getPassword(bp.getUser(),bp.getUsername()));
+                    statement.executeUpdate();
+                    fullName = bp.getFullname2();
+                    names = fullName.split(" " );
+                    statement = conn.prepareStatement("INSERT INTO profiles (username,email,first_name,last_name,ssn,employment,accesslevel,password) VALUES (?,?,?,?,?,?,?,?)");
+                    statement.setString(1,bp.getUsername());
+                    statement.setString(2,bp.getEmail());
+                    statement.setString(3,names[0]);
+                    statement.setString(4,names[1]);
+                    statement.setString(5,bp.getSsn2());
+                    statement.setString(6,bp.getEmployment2());
+                    statement.setInt(7,bp.getUser().getI());
+                    statement.setString(8,accounts.getPassword(bp.getUser(),bp.getUsername()));
+                    statement.executeUpdate();
+                }
             }
             else{
-                String fullName = bp.getFullname();
-                String[] names = fullName.split(" " );
-                PreparedStatement statement = conn.prepareStatement("UPDATE profiles SET username = ?,email = ?,first_name = ?,last_name = ?,ssn = ?,employment = ?,accesslevel = ?,password = ? WHERE id = ? ");
-                statement.setString(1,bp.getUsername());
-                statement.setString(2,bp.getEmail());
-                statement.setString(3,names[0]);
-                statement.setString(4,names[1]);
-                statement.setString(5,bp.getSsn());
-                statement.setString(6,bp.getEmployment());
-                statement.setInt(7,bp.getUser().getI());
-                statement.setString(8,accounts.getPassword(bp.getUser(),bp.getUsername()));
-                statement.setInt(9,bp.getId());
-                statement.executeUpdate();
+                if(bp.getFullname2() == null){
+                    String fullName = bp.getFullname();
+                    String[] names = fullName.split(" " );
+                    PreparedStatement statement = conn.prepareStatement("UPDATE profiles SET username = ?,email = ?,first_name = ?,last_name = ?,ssn = ?,employment = ?,accesslevel = ?,password = ? WHERE id = ? ");
+                    statement.setString(1,bp.getUsername());
+                    statement.setString(2,bp.getEmail());
+                    statement.setString(3,names[0]);
+                    statement.setString(4,names[1]);
+                    statement.setString(5,bp.getSsn());
+                    statement.setString(6,bp.getEmployment());
+                    statement.setInt(7,bp.getUser().getI());
+                    statement.setString(8,accounts.getPassword(bp.getUser(),bp.getUsername()));
+                    statement.setInt(9,bp.getId());
+                    statement.executeUpdate();
+                }
+                else{
+                    String fullName = bp.getFullname();
+                    String[] names = fullName.split(" " );
+                    PreparedStatement statement = conn.prepareStatement("UPDATE profiles SET username = ?,email = ?,first_name = ?,last_name = ?,ssn = ?,employment = ?,accesslevel = ?,password = ? WHERE id = ? ");
+                    statement.setString(1,bp.getUsername());
+                    statement.setString(2,bp.getEmail());
+                    statement.setString(3,names[0]);
+                    statement.setString(4,names[1]);
+                    statement.setString(5,bp.getSsn());
+                    statement.setString(6,bp.getEmployment());
+                    statement.setInt(7,bp.getUser().getI());
+                    statement.setString(8,accounts.getPassword(bp.getUser(),bp.getUsername()));
+                    statement.setInt(9,bp.getId());
+                    statement.executeUpdate();
+                    fullName = bp.getFullname2();
+                    names = fullName.split(" " );
+                    statement = conn.prepareStatement("UPDATE profiles SET username = ?,email = ?,first_name = ?,last_name = ?,ssn = ?,employment = ?,accesslevel = ?,password = ? WHERE id = ? ");
+                    statement.setString(1,bp.getUsername());
+                    statement.setString(2,bp.getEmail());
+                    statement.setString(3,names[0]);
+                    statement.setString(4,names[1]);
+                    statement.setString(5,bp.getSsn2());
+                    statement.setString(6,bp.getEmployment2());
+                    statement.setInt(7,bp.getUser().getI());
+                    statement.setString(8,accounts.getPassword(bp.getUser(),bp.getUsername()));
+                    statement.setInt(9,bp.getId());
+                    statement.executeUpdate();
+                }
             }
         }
     }

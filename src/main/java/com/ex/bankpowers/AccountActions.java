@@ -5,6 +5,7 @@ import com.ex.User;
 import com.ex.ValidFormat;
 import com.ex.accprofile.BankAccount;
 
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -376,7 +377,11 @@ public class AccountActions {
                 doSomethingElse(User.Admin,username);
                 break;
             case "4":
-                AdminCancellingPower.Cancel();
+                try {
+                    AdminCancellingPower.Cancel();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 doSomethingElse(User.Admin,username);
                 break;
             case "5":

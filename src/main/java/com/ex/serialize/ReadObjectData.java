@@ -44,12 +44,13 @@ public class ReadObjectData {
     }
 
     public static AllApplications loadApplications() throws SQLException {
-        PreparedStatement statement = conn.prepareStatement("SELECT id,username,email,accounttype,first_name1,last_name1,ssn1,employment1 FROM applications");
+        PreparedStatement statement = conn.prepareStatement("SELECT id,username,email,accounttype,first_name1,last_name1,ssn1,employment1,first_name2,last_name2,ssn2,employment2 FROM applications");
         ResultSet resultSet = statement.executeQuery();
         while(resultSet.next()){
             AccountApplication accountApplication = new AccountApplication(resultSet.getString("username"),resultSet.getString("email"),resultSet.getInt("accounttype"),
                     resultSet.getString("first_name1")+" "+resultSet.getString("last_name1"),resultSet.getString("ssn1"),
-                    resultSet.getString("employment1"),resultSet.getInt("id"));
+                    resultSet.getString("employment1"),resultSet.getString("first_name2") + " " + resultSet.getString("last_name2"), resultSet.getString("ssn2"),
+                    resultSet.getString("employment2"), resultSet.getInt("id"));
             AllApplications.getApplications().enterNewApplication(accountApplication);
         }
         return AllApplications.getApplications();
