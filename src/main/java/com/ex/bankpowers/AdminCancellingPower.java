@@ -47,6 +47,7 @@ public class AdminCancellingPower {
 
         Main.allBankAccounts.deleteBankAccount(userInput);
         Main.allBankProfiles.deleteProfile(userInput);
+        Main.accounts.deleteAccount(userInput);
 
         //userInput = ValidFormat.loopUntilValid(userInput,"VALUE",1,AllBankAccounts.getInstance().getNumberOfAccounts());
         //AllBankAccounts.getInstance().getBankaccs().remove(Integer.parseInt(userInput) - 1);

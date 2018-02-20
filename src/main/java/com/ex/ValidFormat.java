@@ -174,8 +174,8 @@ public class ValidFormat {
 
     public static boolean isBetweenLength(String input, int minLength, int maxLength){
 
-        int n = input.length();
         if (input != null) {
+            int n = input.length();
             if (n >= minLength && n <= maxLength) {
                 return true;
             } else {
@@ -416,8 +416,7 @@ public class ValidFormat {
                 hasDot = true;
                 countDot++;
             }
-
-            if (!Character.isDigit(input.charAt(i))){
+            else if (!Character.isDigit(input.charAt(i))){
                 return false;
             }
         }
@@ -428,7 +427,7 @@ public class ValidFormat {
 
         if (hasDot){
             String[] line = input.split("\\.");
-            if (line[1].length() > 2){
+            if (line.length < 2 || line[1].length() > 2){
                 return false;
             }
         }

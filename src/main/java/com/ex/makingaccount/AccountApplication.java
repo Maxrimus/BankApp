@@ -56,6 +56,7 @@ public class AccountApplication implements Serializable {
         String userInput = Main.getUserInput();
         userInput = ValidFormat.loopUntilValid(userInput, "ALPHANUM");
         userInput = ValidFormat.loopUntilValid(userInput, "SPACE");
+        userInput = ValidFormat.loopUntilValid(userInput, "LENGTH", 5, 25);
         userInput = ValidFormat.loopUntilValid(userInput, "EXIST");
         username = userInput;
         accounts.newUsername(User.Customer,username);
@@ -118,6 +119,11 @@ public class AccountApplication implements Serializable {
                 userInput = ValidFormat.loopUntilValid(userInput, "SSN");
                 ssn2 = userInput;
 
+                System.out.println("What is your current job title?");
+                userInput = Main.getUserInput();
+                userInput = ValidFormat.loopUntilValid(userInput, "LETTERS");
+                employment = userInput;
+
                 System.out.println("What is your spouse's current job title?");
                 userInput = Main.getUserInput();
                 userInput = ValidFormat.loopUntilValid(userInput, "LETTERS");
@@ -132,6 +138,7 @@ public class AccountApplication implements Serializable {
     }
 
     public String getEmail() { return email; }
+    public void setEmail(String email) {this.email = email;}
 
     public void setFullname(String fullname) {
         this.fullname = fullname;

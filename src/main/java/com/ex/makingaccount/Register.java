@@ -28,6 +28,7 @@ public class Register {
         String userInput = Main.getUserInput();
         userInput = ValidFormat.loopUntilValid(userInput, "ALPHANUM");
         userInput = ValidFormat.loopUntilValid(userInput, "SPACE");
+        userInput =ValidFormat.loopUntilValid(userInput, "LENGTH",5, 30);
         //userInput = ValidFormat.loopUntilValid(userInput, "EXIST");
         username = userInput;
 

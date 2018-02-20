@@ -122,6 +122,9 @@ public class AllAccounts implements Serializable{
     }
 
     public void newUsername(User user, String username){
+        if (username == null){
+            return;
+        }
         switch (user) {
             case Customer:
                 customerUsernames.add(username);
